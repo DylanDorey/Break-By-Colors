@@ -11,6 +11,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Range(0.0f, 1.0f)]
+    [Tooltip("How fast the player controller moves")]
+    public float movementDampaner;
+
+    [Range(0.0f, 1.0f)]
+    [Tooltip("How high the player controller jumps upwards")]
+    public float jumpHeight;
+
+    private Rigidbody rb;
     private Vector3 moveLeftDistance = new Vector3(-1.5f, 0f, 0f);
     private Vector3 moveRightDistance = new Vector3(1.5f, 0f, 0f);
     private Vector3 targetPos = new Vector3(0f, 0f, 0f);
@@ -18,14 +27,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool hasMoved = false;
 
-    [Range(0.0f, 1.0f)]
-    [Tooltip("How fast the player controller moves")]
-    public float movementDampaner;
+    [SerializeField]
+    private bool isGrounded = true;
+
+    private void Start()
+    {
+        InitializePlayerController();
+    }
 
     void FixedUpdate()
     {
         //move in the direction of the current x and y movement values * players speed
         transform.position = Vector3.Lerp(transform.position, targetPos, movementDampaner);
+
+        CheckIfGrounded();
     }
 
     /// <summary>
@@ -38,7 +53,7 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             //if the player hasnt moved, and the players x position is currently greater than -0.1
-            if (!hasMoved && transform.position.x > -0.1f)
+            if (!hasMoved && transform.position.x > -0.1f && isGrounded)
             {
                 //add the desired movement distance to the target position and add movement delay
                 targetPos = transform.position + moveLeftDistance;
@@ -57,7 +72,7 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             //if the player hasnt moved, and the players x position is currently less than 0.1
-            if (!hasMoved && transform.position.x < 0.1f)
+            if (!hasMoved && transform.position.x < 0.1f && isGrounded)
             {
                 //add the desired movement distance to the target position and add movement delay
                 targetPos = transform.position + moveRightDistance;
@@ -82,5 +97,46 @@ public class PlayerController : MonoBehaviour
 
         //set hasMoved back to false
         hasMoved = false;
+    }
+
+    /// <summary>
+    /// Moves the player upwards
+    /// </summary>
+    /// <param name="context"> the state of the input recieved </param>
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        //if the input was performed
+        if (context.performed)
+        {
+            if (isGrounded)
+            {
+                rb.AddForce((Vector3.up * (jumpHeight * 100f)), ForceMode.Impulse);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Checks if the player is on the ground
+    /// </summary>
+    private void CheckIfGrounded()
+    {
+        //if the raycast hits something
+        if (Physics.Raycast(transform.position, Vector3.down, 0.8f))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+    }
+
+    /// <summary>
+    /// Initializes all player controller components and values
+    /// </summary>
+    private void InitializePlayerController()
+    {
+        //initialize the player's rigidbody component
+        rb = GetComponent<Rigidbody>();
     }
 }
