@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
  * [A controller that allows the player to move left, right, and jump]
  */
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
     [Range(0.0f, 1.0f)]
     [Tooltip("How fast the player controller moves")]
