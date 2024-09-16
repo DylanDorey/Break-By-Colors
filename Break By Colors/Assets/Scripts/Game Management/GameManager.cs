@@ -35,7 +35,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
-    /// This will start the game Gauntlet from the main menu
+    /// This will start the game Break by Colors from the main menu
     /// </summary>
     public void StartGame()
     {
@@ -44,7 +44,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
-    /// This will allow the user to close/quit Gauntlet
+    /// This will allow the user to close/quit Break by Colors
     /// </summary>
     public void QuitGame()
     {
