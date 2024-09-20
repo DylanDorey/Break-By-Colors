@@ -55,6 +55,8 @@ public class PlayerController : Singleton<PlayerController>
             //if the player hasnt moved, and the players x position is currently greater than -0.1
             if (!hasMoved && transform.position.x > -0.1f && isGrounded)
             {
+                TrackSpawner.Instance.StartMoving();
+
                 //add the desired movement distance to the target position and add movement delay
                 targetPos = transform.position + moveLeftDistance;
                 StartCoroutine(MovementDelay());
@@ -71,6 +73,8 @@ public class PlayerController : Singleton<PlayerController>
         //if the input was performed
         if (context.performed)
         {
+            TrackSpawner.Instance.StartMoving();
+
             //if the player hasnt moved, and the players x position is currently less than 0.1
             if (!hasMoved && transform.position.x < 0.1f && isGrounded)
             {
@@ -108,6 +112,8 @@ public class PlayerController : Singleton<PlayerController>
         //if the input was performed
         if (context.performed)
         {
+            TrackSpawner.Instance.StartMoving();
+
             if (isGrounded)
             {
                 rb.AddForce((Vector3.up * (jumpHeight * 100f)), ForceMode.Impulse);
