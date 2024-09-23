@@ -16,6 +16,8 @@ public class TrackSpawner : Singleton<TrackSpawner>
     [Tooltip("! MUST MATCH THE LENGTH OF THE TRACK PREFAB !")]
     public int trackSize;
 
+    [Range(3, 10)] public int wallSpawnChance;
+
     public bool startMoving = false;
 
     //reference to the drone object pool

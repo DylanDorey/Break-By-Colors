@@ -710,9 +710,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861340612b4c8864ab096cc5c786d115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 27.5
-  trackLength: 21
-  trackSize: 10
+  startSpeed: 25
+  trackLength: 10
+  trackSize: 20
+  wallSpawnChance: 3
   startMoving: 0
 --- !u!114 &992862522
 MonoBehaviour:
@@ -727,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPoolSize: 0
-  trackPrefab: {fileID: 2580239339564712169, guid: 4d137223544ebc34a85218f1f52b5532,
+  trackPrefab: {fileID: 3328538980465274369, guid: 13ebdfcaabca85743bfb5409808e65fe,
     type: 3}
   trackPool: []
 --- !u!1 &1111270254
@@ -1371,6 +1372,7 @@ MonoBehaviour:
   jumpHeight: 0.3
   hasMoved: 0
   isGrounded: 1
+  targetColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!54 &1467312597
 Rigidbody:
   m_ObjectHideFlags: 0

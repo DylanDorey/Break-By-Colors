@@ -30,6 +30,9 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField]
     private bool isGrounded = true;
 
+    public Color targetColor;
+    private Color playerColor;
+
     private void Start()
     {
         InitializePlayerController();
@@ -144,5 +147,15 @@ public class PlayerController : Singleton<PlayerController>
     {
         //initialize the player's rigidbody component
         rb = GetComponent<Rigidbody>();
+        playerColor = transform.GetChild(0).GetComponent<Renderer>().material.color;
+
+        targetColor = Color.red;
+        playerColor = targetColor;
+    }
+
+    public void SetNewTargetColor(Color newColor)
+    {
+        targetColor = newColor;
+        playerColor = targetColor;
     }
 }

@@ -17,6 +17,8 @@ public class TrackObjectPool : MonoBehaviour
 
     public List<GameObject> trackPool;
 
+    private int wallSpawnChance;
+
     private void Start()
     {
         maxPoolSize = TrackSpawner.Instance.trackLength;
@@ -34,13 +36,15 @@ public class TrackObjectPool : MonoBehaviour
             maxPoolSize = TrackSpawner.Instance.trackLength;
         }
 
+        wallSpawnChance = TrackSpawner.Instance.wallSpawnChance;
+
         for (int index = 0; index < maxPoolSize; index++)
         { 
             GameObject track = Instantiate(trackPrefab, Vector3.zero, Quaternion.identity);
             trackPool.Add(track);
 
             track.transform.parent = trackParent.transform;
-            track.GetComponent<Track>().InitializeTrack(TrackSpawner.Instance.trackSize, TrackSpawner.Instance.trackLength, TrackSpawner.Instance.startSpeed);
+            track.GetComponent<Track>().InitializeTrack(TrackSpawner.Instance.trackSize, TrackSpawner.Instance.trackLength, TrackSpawner.Instance.startSpeed, wallSpawnChance);
             track.name = "Track" + index;
         }
     }
