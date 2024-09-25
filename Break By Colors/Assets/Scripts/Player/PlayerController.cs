@@ -20,8 +20,8 @@ public class PlayerController : Singleton<PlayerController>
     public float jumpHeight;
 
     private Rigidbody rb;
-    private Vector3 moveLeftDistance = new Vector3(-1.5f, 0f, 0f);
-    private Vector3 moveRightDistance = new Vector3(1.5f, 0f, 0f);
+    private Vector3 moveLeftDistance = new Vector3(-2f, 0f, 0f);
+    private Vector3 moveRightDistance = new Vector3(2f, 0f, 0f);
     private Vector3 targetPos = new Vector3(0f, 0f, 0f);
 
     [SerializeField]
@@ -38,8 +38,14 @@ public class PlayerController : Singleton<PlayerController>
         InitializePlayerController();
     }
 
+    private void Update()
+    {
+        transform.GetChild(0).GetComponent<Renderer>().material.color = playerColor;
+    }
+
     void FixedUpdate()
     {
+
         //move in the direction of the current x and y movement values * players speed
         transform.position = Vector3.Lerp(transform.position, targetPos, movementDampaner);
 
@@ -151,6 +157,27 @@ public class PlayerController : Singleton<PlayerController>
 
         targetColor = Color.red;
         playerColor = targetColor;
+    }
+
+    public void ResetPlayerPosition()
+    {
+        targetPos = Vector3.zero;
+
+        StartCoroutine(DisableCollider());
+    }
+
+    private IEnumerator DisableCollider()
+    {
+        for (int index = 0; index < 1; index++)
+        {
+            rb.useGravity = false;
+            GetComponent<SphereCollider>().enabled = false;
+
+            yield return new WaitForSeconds(1f);
+        }
+
+        GetComponent<SphereCollider>().enabled = true;
+        rb.useGravity = true;
     }
 
     public void SetNewTargetColor(Color newColor)

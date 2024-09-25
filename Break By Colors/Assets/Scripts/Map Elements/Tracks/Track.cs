@@ -70,7 +70,7 @@ public class Track : MonoBehaviour
     private void InitializeWalls()
     {
         GameObject wallObjectParent = new GameObject("WallObjectParent");
-        wallObjectParent.transform.parent = this.gameObject.transform;
+        wallObjectParent.transform.parent = gameObject.transform;
 
         for (int index = 0; index < wallSpawnPoints.Length; index++)
         {
@@ -97,6 +97,7 @@ public class Track : MonoBehaviour
             foreach (Wall wall in walls)
             {
                 wall.gameObject.SetActive(true);
+                //wall.transform.GetChild(0).gameObject.SetActive(true);
             }
         }
         else
