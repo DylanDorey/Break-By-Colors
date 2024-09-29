@@ -47,6 +47,18 @@ public class Track : MonoBehaviour
         transform.Translate(0f, 0f, (-speed * Time.deltaTime));
     }
 
+    public float SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+
+        return speed;
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
     /// <summary>
     /// Initializes the track section
     /// </summary>

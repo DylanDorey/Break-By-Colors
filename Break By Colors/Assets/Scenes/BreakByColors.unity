@@ -1018,10 +1018,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861340612b4c8864ab096cc5c786d115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 25
+  startSpeed: 20
   trackLength: 7
   trackSize: 20
-  wallSpawnChance: 5
+  wallSpawnChance: 4
+  speedAccelerationMultiplier: 10
   startMoving: 0
 --- !u!114 &992862522
 MonoBehaviour:
@@ -1678,10 +1679,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementDampaner: 0.2
-  jumpHeight: 0.3
+  jumpHeight: 0.4
   hasMoved: 0
   isGrounded: 1
-  targetColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!54 &1467312597
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1721,7 +1721,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d2092bcdf07514e8e6dc59ceaa18a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1508251385
 GameObject:
   m_ObjectHideFlags: 0

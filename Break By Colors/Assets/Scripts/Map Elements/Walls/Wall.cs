@@ -24,11 +24,12 @@ public class Wall : MonoBehaviour
         {
             player = other.gameObject.GetComponent<PlayerData>();
 
-            if (player.targetColor == thisMaterial.color)
+            if (player.GetTargetColor() == thisMaterial.color)
             {
                 //player.AddScore(scoreValue);
                 player.SetNewTargetColor(wallColors[Random.Range(0, wallColors.Length)]);
                 player.SetColorsMatched();
+                TrackEventBus.Publish(TrackEvent.changeSpeed);
                 gameObject.SetActive(false);
             }
             else
