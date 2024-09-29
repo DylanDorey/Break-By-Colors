@@ -30,17 +30,9 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField]
     private bool isGrounded = true;
 
-    public Color targetColor;
-    private Color playerColor;
-
     private void Start()
     {
         InitializePlayerController();
-    }
-
-    private void Update()
-    {
-        transform.GetChild(0).GetComponent<Renderer>().material.color = playerColor;
     }
 
     void FixedUpdate()
@@ -153,10 +145,6 @@ public class PlayerController : Singleton<PlayerController>
     {
         //initialize the player's rigidbody component
         rb = GetComponent<Rigidbody>();
-        playerColor = transform.GetChild(0).GetComponent<Renderer>().material.color;
-
-        targetColor = Color.red;
-        playerColor = targetColor;
     }
 
     public void ResetPlayerPosition()
@@ -178,11 +166,5 @@ public class PlayerController : Singleton<PlayerController>
 
         GetComponent<SphereCollider>().enabled = true;
         rb.useGravity = true;
-    }
-
-    public void SetNewTargetColor(Color newColor)
-    {
-        targetColor = newColor;
-        playerColor = targetColor;
     }
 }

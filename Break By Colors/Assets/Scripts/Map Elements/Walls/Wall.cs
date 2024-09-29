@@ -10,7 +10,7 @@ public class Wall : MonoBehaviour
 
     [SerializeField]
     private Material thisMaterial;
-    private PlayerController player;
+    private PlayerData player;
 
     private void Start()
     { 
@@ -22,18 +22,18 @@ public class Wall : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            player = other.gameObject.GetComponent<PlayerController>();
+            player = other.gameObject.GetComponent<PlayerData>();
 
             if (player.targetColor == thisMaterial.color)
             {
-                Debug.Log(thisMaterial.color);
                 //player.AddScore(scoreValue);
                 player.SetNewTargetColor(wallColors[Random.Range(0, wallColors.Length)]);
+                player.SetColorsMatched();
                 gameObject.SetActive(false);
             }
             else
             {
-                player.ResetPlayerPosition();
+                player.gameObject.GetComponent<PlayerController>().ResetPlayerPosition();
             }
         }
     }

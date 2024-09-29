@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        targetColor.color = PlayerController.Instance.targetColor;
+        targetColor.color = PlayerData.Instance.targetColor;
     }
 
     /// <summary>
