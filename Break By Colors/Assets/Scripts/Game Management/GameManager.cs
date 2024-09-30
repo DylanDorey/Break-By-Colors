@@ -40,7 +40,7 @@ public class GameManager : Singleton<GameManager>
     public void StartGame()
     {
         //publish the startGame game event
-        //GameEventBus.Publish(GameState.startGame);
+        GameEventBus.Publish(GameState.startGame);
     }
 
     /// <summary>
