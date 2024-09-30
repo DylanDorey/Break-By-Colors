@@ -8,6 +8,7 @@ public class UIManager : Singleton<UIManager>
 {
     public GameObject menuScreen;
     public GameObject gameScreen;
+    public GameObject gameOverScreen;
 
     /// <summary>
     /// PLAYTEST 1 ONLY
@@ -16,14 +17,16 @@ public class UIManager : Singleton<UIManager>
 
     private void OnEnable()
     {
-        //GameEventBus.Subscribe(GameState.mainMenu, EnableMenuUI);
-        //GameEventBus.Subscribe(GameState.startGame, EnablePlayingUI);
+        GameEventBus.Subscribe(GameState.mainMenu, EnableMenuUI);
+        GameEventBus.Subscribe(GameState.startGame, EnablePlayingUI);
+        GameEventBus.Subscribe(GameState.startGame, EnableGameOverUI);
     }
 
     private void OnDisable()
     {
-        //GameEventBus.Unsubscribe(GameState.mainMenu, EnableMenuUI);
-        //GameEventBus.Unsubscribe(GameState.startGame, EnablePlayingUI);
+        GameEventBus.Unsubscribe(GameState.mainMenu, EnableMenuUI);
+        GameEventBus.Unsubscribe(GameState.startGame, EnablePlayingUI);
+        GameEventBus.Unsubscribe(GameState.startGame, EnableGameOverUI);
     }
 
     private void Update()
@@ -37,7 +40,7 @@ public class UIManager : Singleton<UIManager>
     private void EnableMenuUI()
     {
         //disable the playing screen and game over screen, but enable the menu screen
-        SetDisplayScreen(true, false);
+        SetDisplayScreen(true, false, false);
     }
 
     /// <summary>
@@ -46,7 +49,16 @@ public class UIManager : Singleton<UIManager>
     private void EnablePlayingUI()
     {
         //disable the menu and game over screen, but enable the playing screen
-        SetDisplayScreen(false, true);
+        SetDisplayScreen(false, true, false);
+    }
+
+    /// <summary>
+    /// enables the game over screen
+    /// </summary>
+    private void EnableGameOverUI()
+    {
+        //disable the menu and playing, but enable the game over screen
+        SetDisplayScreen(false, false, true);
     }
 
     /// <summary>
@@ -54,9 +66,11 @@ public class UIManager : Singleton<UIManager>
     /// </summary>
     /// <param name="menu"> sets the menu screen on or off </param>
     /// <param name="game"> sets the game screen on or off </param>
-    private void SetDisplayScreen(bool menu, bool game)
+    /// <param name="over"> sets the game over screen on or off </param>
+    private void SetDisplayScreen(bool menu, bool game, bool over)
     {
         menuScreen.SetActive(menu);
         gameScreen.SetActive(game);
+        gameOverScreen.SetActive(over);
     }
 }

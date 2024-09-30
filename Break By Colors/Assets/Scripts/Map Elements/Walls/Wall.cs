@@ -34,7 +34,9 @@ public class Wall : MonoBehaviour
             }
             else
             {
-                player.gameObject.GetComponent<PlayerController>().ResetPlayerPosition();
+                //Set the game to game over
+                //player.gameObject.GetComponent<PlayerController>().ResetPlayerPosition();
+                GameEventBus.Publish(GameState.gameOver);
             }
         }
     }

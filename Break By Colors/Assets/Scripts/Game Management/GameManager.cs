@@ -14,6 +14,7 @@ public enum GameState
     mainMenu,
     initializeGame,
     startGame,
+    pauseGame,
     gameOver
 }
 
@@ -22,7 +23,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         //start the game in the main menu by publishing the menu game event
-        //GameEventBus.Publish(GameState.mainMenu);
+        GameEventBus.Publish(GameState.mainMenu);
     }
 
     /// <summary>
@@ -31,7 +32,7 @@ public class GameManager : Singleton<GameManager>
     public void InitializeGame()
     {
         //publish the initializeGame game event
-        //GameEventBus.Publish(GameState.initializeGame);
+        GameEventBus.Publish(GameState.initializeGame);
     }
 
     /// <summary>
@@ -44,10 +45,30 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
+    /// This will pause the game Break by Colors during gameplay
+    /// </summary>
+    public void PauseGame()
+    {
+        //publish the pauseGame game event
+        GameEventBus.Publish(GameState.pauseGame);
+    }
+
+    /// <summary>
+    /// This will return the player to the menu
+    /// </summary>
+    public void ReturnToMenu()
+    {
+        //publish the mainMenu game event
+        GameEventBus.Publish(GameState.mainMenu);
+    }
+
+    /// <summary>
     /// This will allow the user to close/quit Break by Colors
     /// </summary>
     public void QuitGame()
     {
+        //SAVE THE GAME HERE
+
         //quit the application
         Application.Quit();
     }
