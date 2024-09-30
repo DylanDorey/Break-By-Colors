@@ -15,6 +15,7 @@ public enum GameState
     initializeGame,
     startGame,
     pauseGame,
+    resumeGame,
     gameOver
 }
 
@@ -51,6 +52,15 @@ public class GameManager : Singleton<GameManager>
     {
         //publish the pauseGame game event
         GameEventBus.Publish(GameState.pauseGame);
+    }
+
+    /// <summary>
+    /// This will resume the game Break by Colors
+    /// </summary>
+    public void ResumeGame()
+    {
+        //publish the pauseGame game event
+        GameEventBus.Publish(GameState.resumeGame);
     }
 
     /// <summary>

@@ -33,6 +33,7 @@ public class TrackSpawner : Singleton<TrackSpawner>
         TrackEventBus.Subscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
 
         GameEventBus.Subscribe(GameState.startGame, StartMoving);
+        GameEventBus.Subscribe(GameState.gameOver, StopMoving);
     }
 
     private void OnDisable()
@@ -40,6 +41,7 @@ public class TrackSpawner : Singleton<TrackSpawner>
         TrackEventBus.Unsubscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
 
         GameEventBus.Unsubscribe(GameState.startGame, StartMoving);
+        GameEventBus.Unsubscribe(GameState.gameOver, StopMoving);
     }
 
     private void Start()
@@ -69,6 +71,11 @@ public class TrackSpawner : Singleton<TrackSpawner>
     public void StartMoving()
     {
         moving = true;
+    }
+
+    public void StopMoving()
+    {
+        moving = false;
     }
 
     /// <summary>
