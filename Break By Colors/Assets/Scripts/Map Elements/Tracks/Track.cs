@@ -24,7 +24,7 @@ public class Track : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (TrackSpawner.Instance.startMoving)
+        if (TrackSpawner.Instance.moving)
         {
             Move();
         }

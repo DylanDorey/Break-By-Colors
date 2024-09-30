@@ -23,7 +23,7 @@ public class TrackSpawner : Singleton<TrackSpawner>
     [Range(0.01f, 10f)]
     public float speedAccelerationMultiplier;
 
-    public bool startMoving = false;
+    public bool moving = false;
 
     //reference to the drone object pool
     private TrackObjectPool pool;
@@ -31,11 +31,15 @@ public class TrackSpawner : Singleton<TrackSpawner>
     private void OnEnable()
     {
         TrackEventBus.Subscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
+
+        GameEventBus.Subscribe(GameState.startGame, StartMoving);
     }
 
     private void OnDisable()
     {
         TrackEventBus.Unsubscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
+
+        GameEventBus.Unsubscribe(GameState.startGame, StartMoving);
     }
 
     private void Start()
@@ -62,11 +66,9 @@ public class TrackSpawner : Singleton<TrackSpawner>
         pool.DestroyTrackPool();
     }
 
-    public bool StartMoving()
+    public void StartMoving()
     {
-        startMoving = true;
-
-        return startMoving;
+        moving = true;
     }
 
     /// <summary>
