@@ -32,21 +32,20 @@ public class TrackSpawner : Singleton<TrackSpawner>
     {
         TrackEventBus.Subscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
 
+        GameEventBus.Subscribe(GameState.mainMenu, StartSpawning);
         GameEventBus.Subscribe(GameState.startGame, StartMoving);
         GameEventBus.Subscribe(GameState.gameOver, StopMoving);
+        GameEventBus.Subscribe(GameState.returnToMenu, ResetTrack);
     }
 
     private void OnDisable()
     {
         TrackEventBus.Unsubscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
 
+        GameEventBus.Unsubscribe(GameState.mainMenu, StartSpawning);
         GameEventBus.Unsubscribe(GameState.startGame, StartMoving);
         GameEventBus.Unsubscribe(GameState.gameOver, StopMoving);
-    }
-
-    private void Start()
-    {
-        StartSpawning();
+        GameEventBus.Unsubscribe(GameState.returnToMenu, ResetTrack);
     }
 
     private void StartSpawning()
@@ -63,7 +62,7 @@ public class TrackSpawner : Singleton<TrackSpawner>
         }
     }
 
-    private void StopSpawning()
+    private void ResetTrack()
     {
         pool.DestroyTrackPool();
     }

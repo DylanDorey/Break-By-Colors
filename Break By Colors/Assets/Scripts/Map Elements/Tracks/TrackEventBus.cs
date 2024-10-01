@@ -12,7 +12,6 @@ using UnityEngine.Events;
 //the various track events
 public enum TrackEvent
 {
-    paused,
     changeSpeed
 }
 

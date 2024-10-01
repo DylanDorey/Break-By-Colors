@@ -79,12 +79,12 @@ public class TrackObjectPool : MonoBehaviour
 
     public void DestroyTrackPool()
     {
-        foreach (GameObject track in trackPool)
-        {
-            trackPool.Remove(track);
-            Destroy(track);
-        }
+        trackPool.Clear();
 
         Destroy(trackParent);
+
+        trackParent = null;
+
+        GameEventBus.Publish(GameState.mainMenu);
     }
 }

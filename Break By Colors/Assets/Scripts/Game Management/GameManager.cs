@@ -16,7 +16,8 @@ public enum GameState
     startGame,
     pauseGame,
     resumeGame,
-    gameOver
+    gameOver,
+    returnToMenu
 }
 
 public class GameManager : Singleton<GameManager>
@@ -69,7 +70,7 @@ public class GameManager : Singleton<GameManager>
     public void ReturnToMenu()
     {
         //publish the mainMenu game event
-        GameEventBus.Publish(GameState.mainMenu);
+        GameEventBus.Publish(GameState.returnToMenu);
     }
 
     /// <summary>

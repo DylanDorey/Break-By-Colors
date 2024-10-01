@@ -30,6 +30,16 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField]
     private bool isGrounded = true;
 
+    private void OnEnable()
+    {
+        GameEventBus.Subscribe(GameState.returnToMenu, ResetPlayerPosition);
+    }
+
+    private void OnDisable()
+    { 
+        GameEventBus.Unsubscribe(GameState.returnToMenu, ResetPlayerPosition);
+    }
+
     private void Start()
     {
         InitializePlayerController();
@@ -37,7 +47,6 @@ public class PlayerController : Singleton<PlayerController>
 
     void FixedUpdate()
     {
-
         //move in the direction of the current x and y movement values * players speed
         transform.position = Vector3.Lerp(transform.position, targetPos, movementDampaner);
 
