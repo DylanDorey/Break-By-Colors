@@ -102,7 +102,7 @@ public class PlayerController : Singleton<PlayerController>
             //set hasMoved to true and wait 0.9 seconds
             hasMoved = true;
 
-            yield return new WaitForSeconds(0.9f);
+            yield return new WaitForSeconds(0.4f);
         }
 
         //set hasMoved back to false

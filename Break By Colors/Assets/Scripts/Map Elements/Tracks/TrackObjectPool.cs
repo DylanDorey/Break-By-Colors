@@ -56,7 +56,7 @@ public class TrackObjectPool : MonoBehaviour
             PopulateTrackPool();
         }
 
-        float spawnPoint = (TrackSpawner.Instance.trackSize * TrackSpawner.Instance.trackLength) - (TrackSpawner.Instance.trackSize + 20);
+        float spawnPoint = (TrackSpawner.Instance.trackSize * TrackSpawner.Instance.trackLength) - (TrackSpawner.Instance.trackSize);
 
         for (int index = 0; index < maxPoolSize; index++)
         {

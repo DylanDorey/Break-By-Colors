@@ -36,7 +36,7 @@ public class Track : MonoBehaviour
     private void Move()
     {
         //if the track moves too far behind the player
-        if (transform.position.z < -20)
+        if (transform.position.z < -localTrackSize)
         {
             //go back to the start of the track length
             transform.position = spawnPos;
@@ -72,7 +72,7 @@ public class Track : MonoBehaviour
         speed = startSpeed;
         wallSpawnChance = spawnChance;
 
-        spawnPos = new Vector3(0f, -0.7f, (localTrackSize * trackLength) - (localTrackSize + 20));
+        spawnPos = new Vector3(0f, -0.7f, (localTrackSize * trackLength) - (localTrackSize));
         InitializeWalls();
     }
 
@@ -106,10 +106,16 @@ public class Track : MonoBehaviour
 
         if (spawnWallIndex == 1)
         {
-            foreach (Wall wall in walls)
+            int randomGapIndex = Random.Range(0, 6);
+
+            for (int index = 0; index < walls.Count; index++)
             {
-                wall.gameObject.SetActive(true);
-                //wall.transform.GetChild(0).gameObject.SetActive(true);
+                walls[index].gameObject.SetActive(true);
+
+                if (index == randomGapIndex)
+                {
+                    walls[index].gameObject.SetActive(false);
+                }
             }
         }
         else

@@ -13,6 +13,7 @@ public class PlayerData : Singleton<PlayerData>
     private Color targetColor;
     private Color playerColor;
     private int colorsMatched = 0;
+    private Color[] wallColors = new Color[4] { Color.red, Color.blue, Color.green, Color.yellow };
 
     private void Start()
     {
@@ -31,7 +32,7 @@ public class PlayerData : Singleton<PlayerData>
     {
         //color data
         playerColor = transform.GetChild(0).GetComponent<Renderer>().material.color;
-        targetColor = Color.red;
+        targetColor = wallColors[Random.Range(0, wallColors.Length)];
         playerColor = targetColor;
     }
 
