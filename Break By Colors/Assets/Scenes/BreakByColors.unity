@@ -1988,7 +1988,7 @@ MonoBehaviour:
   trackLength: 6
   trackSize: 30
   wallSpawnChance: 2
-  speedAccelerationMultiplier: 1
+  speedAccelerationMultiplier: 2
   moving: 0
 --- !u!114 &992862522
 MonoBehaviour:

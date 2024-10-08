@@ -92,8 +92,27 @@ public class Track : MonoBehaviour
             wall.transform.parent = wallObjectParent.transform;
 
             wall.name = "Wall";
+        }
 
-            wall.SetActive(false);
+        int randomWallVisibility = Random.Range(0, 2);
+
+        if (randomWallVisibility == 1)
+        {
+            wallObjectParent.SetActive(true);
+        }
+        else
+        {
+            wallObjectParent.SetActive(false);
+        }
+
+        int randomGapIndex = Random.Range(0, 6);
+
+        for (int index = 0; index < walls.Count; index++)
+        {
+            if (index == randomGapIndex)
+            {
+                walls[index].gameObject.SetActive(false);
+            }
         }
     }
 
