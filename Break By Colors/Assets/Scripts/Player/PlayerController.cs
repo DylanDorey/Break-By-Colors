@@ -9,26 +9,50 @@ using UnityEngine.InputSystem;
  * [A controller that allows the player to move left, right, and jump]
  */
 
+public enum MoveDirection
+{
+    Left = -2,
+    Right = 2
+};
+
 public class PlayerController : Singleton<PlayerController>
 {
     [Range(0.0f, 1.0f)]
     [Tooltip("How fast the player controller moves")]
     public float movementDampaner;
 
-    [Range(0.0f, 1.0f)]
-    [Tooltip("How high the player controller jumps upwards")]
-    public float jumpHeight;
+    //[Range(0.0f, 5f)]
+    //[Tooltip("How high the player controller jumps upwards")]
+    //public float jumpHeight;
 
-    private Rigidbody rb;
-    private Vector3 moveLeftDistance = new Vector3(-2f, 0f, 0f);
-    private Vector3 moveRightDistance = new Vector3(2f, 0f, 0f);
-    private Vector3 targetPos = new Vector3(0f, 0f, 0f);
+    [Range(0.0f, 1.0f)]
+    [Tooltip("The time before another movement can be made")]
+    public float movementDelay;
+
+    public Rigidbody rb;
+    //private Vector3 moveLeftDistance = new Vector3(-2f, 0f, 0f);
+    //private Vector3 moveRightDistance = new Vector3(2f, 0f, 0f);
+    public Vector3 targetPos = new Vector3(0f, 0f, 0f);
 
     [SerializeField]
     private bool hasMoved = false;
 
     [SerializeField]
     private bool isGrounded = true;
+
+    private Transform playerModelTransform;
+
+
+    //property for the current move direction of the player
+    public MoveDirection CurrentMoveDirection
+    {
+        get; private set;
+    }
+
+    private IPlayerState moveState;
+
+    //reference to the context of the player state
+    private PlayerStateContext playerStateContext;
 
     private void OnEnable()
     {
@@ -51,6 +75,7 @@ public class PlayerController : Singleton<PlayerController>
         transform.position = Vector3.Lerp(transform.position, targetPos, movementDampaner);
 
         CheckIfGrounded();
+        BallRotate();
     }
 
     /// <summary>
@@ -65,8 +90,13 @@ public class PlayerController : Singleton<PlayerController>
             //if the player hasnt moved, and the players x position is currently greater than -0.1
             if (!hasMoved && transform.position.x > -0.1f && isGrounded)
             {
-                //add the desired movement distance to the target position and add movement delay
-                targetPos = transform.position + moveLeftDistance;
+                //set the turn direction to the direction that was called
+                CurrentMoveDirection = MoveDirection.Left;
+
+                //transition the player's state
+                playerStateContext.Transition(moveState);
+
+                //add movement delay
                 StartCoroutine(MovementDelay());
             }
         }
@@ -84,9 +114,30 @@ public class PlayerController : Singleton<PlayerController>
             //if the player hasnt moved, and the players x position is currently less than 0.1
             if (!hasMoved && transform.position.x < 0.1f && isGrounded)
             {
-                //add the desired movement distance to the target position and add movement delay
-                targetPos = transform.position + moveRightDistance;
+                //set the turn direction to the direction that was called
+                CurrentMoveDirection = MoveDirection.Right;
+
+                //transition the player's state
+                playerStateContext.Transition(moveState);
+
+                //add movement delay
                 StartCoroutine(MovementDelay());
+            }
+        }
+    }
+
+    /// <summary>
+    /// Moves the player upwards
+    /// </summary>
+    /// <param name="context"> the state of the input recieved </param>
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        //if the input was performed
+        if (context.performed)
+        {
+            if (isGrounded)
+            {
+                rb.AddForce((Vector3.up * 35f), ForceMode.Impulse);
             }
         }
     }
@@ -102,27 +153,11 @@ public class PlayerController : Singleton<PlayerController>
             //set hasMoved to true and wait 0.9 seconds
             hasMoved = true;
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(movementDelay);
         }
 
         //set hasMoved back to false
         hasMoved = false;
-    }
-
-    /// <summary>
-    /// Moves the player upwards
-    /// </summary>
-    /// <param name="context"> the state of the input recieved </param>
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        //if the input was performed
-        if (context.performed)
-        {
-            if (isGrounded)
-            {
-                rb.AddForce((Vector3.up * (jumpHeight * 100f)), ForceMode.Impulse);
-            }
-        }
     }
 
     /// <summary>
@@ -131,7 +166,7 @@ public class PlayerController : Singleton<PlayerController>
     private void CheckIfGrounded()
     {
         //if the raycast hits something
-        if (Physics.Raycast(transform.position, Vector3.down, 0.8f))
+        if (Physics.Raycast(transform.position, Vector3.down, 0.7f))
         {
             isGrounded = true;
         }
@@ -141,6 +176,11 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
+    private void BallRotate()
+    {
+        playerModelTransform.Rotate(TrackSpawner.Instance.pool.trackPool[0].gameObject.GetComponent<Track>().GetSpeed(), 0f, 0f);
+    }
+
     /// <summary>
     /// Initializes all player controller components and values
     /// </summary>
@@ -148,6 +188,14 @@ public class PlayerController : Singleton<PlayerController>
     {
         //initialize the player's rigidbody component
         rb = GetComponent<Rigidbody>();
+
+        playerModelTransform = transform.GetChild(0).transform;
+
+        //intialize the player context object
+        playerStateContext = new PlayerStateContext(this);
+
+        //initialize the player move state intefaces
+        moveState = gameObject.AddComponent<PlayerMoveState>();
     }
 
     public void ResetPlayerPosition()

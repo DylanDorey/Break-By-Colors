@@ -121,27 +121,15 @@ public class Track : MonoBehaviour
     /// </summary>
     private void OnTrackReset()
     {
-        int spawnWallIndex = Random.Range(0, wallSpawnChance);
+        int randomGapIndex = Random.Range(0, 6);
 
-        if (spawnWallIndex == 1)
+        for (int index = 0; index < walls.Count; index++)
         {
-            int randomGapIndex = Random.Range(0, 6);
+            walls[index].gameObject.SetActive(true);
 
-            for (int index = 0; index < walls.Count; index++)
+            if (index == randomGapIndex)
             {
-                walls[index].gameObject.SetActive(true);
-
-                if (index == randomGapIndex)
-                {
-                    walls[index].gameObject.SetActive(false);
-                }
-            }
-        }
-        else
-        {
-            foreach (Wall wall in walls)
-            {
-                wall.gameObject.SetActive(false);
+                walls[index].gameObject.SetActive(false);
             }
         }
     }

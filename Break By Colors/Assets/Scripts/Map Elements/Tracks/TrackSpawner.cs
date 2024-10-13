@@ -17,16 +17,16 @@ public class TrackSpawner : Singleton<TrackSpawner>
     public int trackSize;
 
     [Tooltip("The likeliness that a wall will not spawn")]
-    [Range(2, 5)] public int wallSpawnChance;
+    [Range(1, 5)] public int wallSpawnChance;
 
     [Tooltip("The speed at which the track increases speed over time")]
-    [Range(0.01f, 10f)]
-    public float speedAccelerationMultiplier;
+    [SerializeField]
+    private float speedAccelerationMultiplier;
 
     public bool moving = false;
 
     //reference to the drone object pool
-    private TrackObjectPool pool;
+    public TrackObjectPool pool;
 
     private void OnEnable()
     {
