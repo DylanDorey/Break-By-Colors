@@ -21,10 +21,6 @@ public class PlayerController : Singleton<PlayerController>
     [Tooltip("How fast the player controller moves")]
     public float movementDampaner;
 
-    //[Range(0.0f, 5f)]
-    //[Tooltip("How high the player controller jumps upwards")]
-    //public float jumpHeight;
-
     [Range(0.0f, 1.0f)]
     [Tooltip("The time before another movement can be made")]
     public float movementDelay;
@@ -42,6 +38,11 @@ public class PlayerController : Singleton<PlayerController>
 
     private Transform playerModelTransform;
 
+    private Vector2 swipeDirection;
+    private float minHSwipeAmount = 2f;
+    private float minVSwipeAmount = 4f;
+
+    private Player playerActionMap;
 
     //property for the current move direction of the player
     public MoveDirection CurrentMoveDirection
@@ -76,6 +77,73 @@ public class PlayerController : Singleton<PlayerController>
 
         CheckIfGrounded();
         BallRotate();
+    }
+
+    /// <summary>
+    /// Stores the direction of the swipe into a vector2 when a swipe is started
+    /// </summary>
+    /// <param name="context"> the state of the input recieved </param>
+    public void OnSwipePerformed(InputAction.CallbackContext context)
+    {
+        swipeDirection = context.ReadValue<Vector2>();
+    }
+
+    /// <summary>
+    /// When the player lifts their finger after a swipe they will traverse in the desired direction
+    /// </summary>
+    /// <param name="context"> the state of the input recieved </param>
+    public void OnSwipeEnded(InputAction.CallbackContext context)
+    {
+        //if the player swipes further/more on the x axis
+        if (Mathf.Abs(swipeDirection.x) > Mathf.Abs(swipeDirection.y))
+        {
+            //if the player swipes right on the x axis
+            if (swipeDirection.x > 0f)
+            {
+                //if the player hasnt moved, and the players x position is currently less than 0.1, and isGrounded
+                if (!hasMoved && transform.position.x < 0.1f && isGrounded)
+                {
+                    //set the turn direction to the direction that was called
+                    CurrentMoveDirection = MoveDirection.Right;
+
+                    //transition the player's state
+                    playerStateContext.Transition(moveState);
+
+                    //add movement delay
+                    StartCoroutine(MovementDelay());
+                }
+            }
+            //if the player swipes left on the x axis
+            else if (swipeDirection.x < 0f)
+            {
+                //if the player hasnt moved, and the players x position is currently greater than -0.1, and isGrounded
+                if (!hasMoved && transform.position.x > -0.1f && isGrounded)
+                {
+                    //set the turn direction to the direction that was called
+                    CurrentMoveDirection = MoveDirection.Left;
+
+                    //transition the player's state
+                    playerStateContext.Transition(moveState);
+
+                    //add movement delay
+                    StartCoroutine(MovementDelay());
+                }
+            }
+        }
+        //otherwise, if the player swipes further/more on the y axis
+        else
+        {
+            //if the player swipes up on the y axis
+            if (swipeDirection.y > 0)
+            {
+                //if the player isGrounded
+                if (isGrounded)
+                {
+                    //add jump force to the player
+                    rb.AddForce((Vector3.up * 20f), ForceMode.Impulse);
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -176,6 +244,9 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
+    /// <summary>
+    /// Rotates the players model at the speed of the track
+    /// </summary>
     private void BallRotate()
     {
         playerModelTransform.Rotate(TrackSpawner.Instance.pool.trackPool[0].gameObject.GetComponent<Track>().GetSpeed(), 0f, 0f);
@@ -186,9 +257,18 @@ public class PlayerController : Singleton<PlayerController>
     /// </summary>
     private void InitializePlayerController()
     {
+        //create and enable a new player action map
+        playerActionMap = new Player();
+        playerActionMap.Enable();
+
+        //Store the correct functions for when a swipe is performed/started and a touch is canceled/lifted
+        playerActionMap.PlayerMovement.Swipe.performed += OnSwipePerformed;
+        playerActionMap.PlayerMovement.Touch.canceled += OnSwipeEnded;
+
         //initialize the player's rigidbody component
         rb = GetComponent<Rigidbody>();
 
+        //the player model's transform
         playerModelTransform = transform.GetChild(0).transform;
 
         //intialize the player context object
@@ -198,6 +278,9 @@ public class PlayerController : Singleton<PlayerController>
         moveState = gameObject.AddComponent<PlayerMoveState>();
     }
 
+    /// <summary>
+    /// Resets the players position back to the starting location
+    /// </summary>
     public void ResetPlayerPosition()
     {
         targetPos = Vector3.zero;
@@ -205,6 +288,10 @@ public class PlayerController : Singleton<PlayerController>
         StartCoroutine(DisableCollider());
     }
 
+    /// <summary>
+    /// Disables the players collider for a specific duration
+    /// </summary>
+    /// <returns> the duration the collider is disabled for </returns>
     private IEnumerator DisableCollider()
     {
         for (int index = 0; index < 1; index++)

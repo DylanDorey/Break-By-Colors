@@ -3188,26 +3188,18 @@ MonoBehaviour:
     m_ActionId: 3b34913f-d63f-4028-97a4-285eec5f19e8
     m_ActionName: Player Movement/Move Left[/Keyboard/a]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1467312596}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnMoveRight
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 76019f10-831f-41b2-a194-488c93e30d3d
     m_ActionName: Player Movement/Move Right[/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b4355d5d-bdbb-41eb-8826-10f7820a9ef9
+    m_ActionName: Player Movement/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1467312596}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnJump
+        m_MethodName: OnSwipePerformed
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3217,8 +3209,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: b4355d5d-bdbb-41eb-8826-10f7820a9ef9
-    m_ActionName: Player Movement/Jump[/Keyboard/space]
+    m_ActionId: 43a24b8a-60f8-414f-aa4c-6243c47c7d79
+    m_ActionName: Player Movement/Swipe
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1467312596}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSwipeEnded
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0cb140c9-508c-4ebb-972e-b35c882a6ad1
+    m_ActionName: Player Movement/Touch
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player Movement
