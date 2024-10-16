@@ -34,6 +34,7 @@ public class Wall : MonoBehaviour
                 //player.AddScore(scoreValue);
                 player.SetNewTargetColor(wallColors[Random.Range(0, wallColors.Length)]);
                 player.SetColorsMatched();
+                player.SetCurrentScore(scoreValue);
                 TrackEventBus.Publish(TrackEvent.changeSpeed);
             }
             else

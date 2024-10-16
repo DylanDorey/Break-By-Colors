@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -9,10 +10,12 @@ public class UIManager : Singleton<UIManager>
     public GameObject pausedScreen;
     public GameObject gameOverScreen;
 
-    /// <summary>
-    /// PLAYTEST 1 ONLY
-    /// </summary>
+    //player's target color
     public Image targetColor;
+
+    //player's score
+    public TextMeshProUGUI score;
+
 
     private void OnEnable()
     {
@@ -35,6 +38,7 @@ public class UIManager : Singleton<UIManager>
     private void Update()
     {
         targetColor.color = PlayerData.Instance.GetTargetColor();
+        score.text = PlayerData.Instance.GetCurrentScore().ToString();
     }
 
     /// <summary>

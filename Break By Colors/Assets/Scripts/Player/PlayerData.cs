@@ -15,6 +15,9 @@ public class PlayerData : Singleton<PlayerData>
     private int colorsMatched = 0;
     private Color[] wallColors = new Color[4] { Color.red, Color.blue, Color.green, Color.yellow };
 
+    private int currentScore;
+    private int highScore;
+
     private void Start()
     {
         InitializePlayerData();
@@ -37,13 +40,53 @@ public class PlayerData : Singleton<PlayerData>
     }
 
     /// <summary>
-    /// Sets the new target color for the player
+    /// Setter for the current score
     /// </summary>
-    /// <param name="newColor"></param>
-    public void SetNewTargetColor(Color newColor)
+    /// <param name="addedAmount"> the amount of points to be added to the current score </param>
+    public void SetCurrentScore(int addedAmount)
     {
-        targetColor = newColor;
-        playerColor = targetColor;
+        currentScore += addedAmount;
+    }
+
+    /// <summary>
+    /// Setter for the high score
+    /// </summary>
+    /// <param name="newHighScore">the new high score of the player</param>
+    public int SetHighScore(int newHighScore)
+    {
+        highScore = newHighScore;
+
+        return highScore;
+    }
+
+    /// <summary>
+    /// Creates a new high score for the player
+    /// </summary>
+    /// <param name="potentialNewHighScore">the potential new high score that the player just earned (current score)</param>
+    public void CreateNewHighScore(int potentialNewHighScore)
+    {
+        if(potentialNewHighScore > highScore)
+        {
+            SetHighScore(potentialNewHighScore);
+        }
+    }
+
+    /// <summary>
+    /// Getter for the player's high score
+    /// </summary>
+    /// <returns>the player's highest score</returns>
+    public int GetHighScore()
+    {
+        return highScore;
+    }
+
+    /// <summary>
+    /// Getter for the player's current score
+    /// </summary>
+    /// <returns>the player's current session score</returns>
+    public int GetCurrentScore()
+    {
+        return currentScore;
     }
 
     /// <summary>
@@ -70,5 +113,15 @@ public class PlayerData : Singleton<PlayerData>
     public int GetColorsMatched()
     {
         return colorsMatched;
+    }
+
+    /// <summary>
+    /// Sets the new target color for the player
+    /// </summary>
+    /// <param name="newColor"></param>
+    public void SetNewTargetColor(Color newColor)
+    {
+        targetColor = newColor;
+        playerColor = targetColor;
     }
 }
