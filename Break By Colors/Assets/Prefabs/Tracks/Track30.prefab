@@ -57,6 +57,8 @@ MonoBehaviour:
   walls: []
   wallPrefab: {fileID: 1284135037329149243, guid: 955c0607edb1c6e4ea0681eb1343bfad,
     type: 3}
+  gapCollider: {fileID: 8095244701227623907, guid: 0c2ff5029009eb1419597306d6bb85f9,
+    type: 3}
   wallSpawnChance: 0
 --- !u!1 &1897682993757807457
 GameObject:

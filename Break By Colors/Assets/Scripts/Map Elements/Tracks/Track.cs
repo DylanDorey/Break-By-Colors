@@ -17,8 +17,9 @@ public class Track : MonoBehaviour
     private Vector3 spawnPos;
 
     public Transform[] wallSpawnPoints;
-    public List<Wall> walls;
+    public List<GameObject> walls;
     public GameObject wallPrefab;
+    public GameObject gapCollider;
 
     public int wallSpawnChance;
 
@@ -47,11 +48,9 @@ public class Track : MonoBehaviour
         transform.Translate(0f, 0f, (-speed * Time.deltaTime));
     }
 
-    public float SetSpeed(float newSpeed)
+    public void SetSpeed(float newSpeed)
     {
         speed = newSpeed;
-
-        return speed;
     }
 
     public float GetSpeed()
@@ -84,35 +83,35 @@ public class Track : MonoBehaviour
         GameObject wallObjectParent = new GameObject("WallObjectParent");
         wallObjectParent.transform.parent = gameObject.transform;
 
+        int randomGapIndex = Random.Range(0, 6);
+
         for (int index = 0; index < wallSpawnPoints.Length; index++)
         {
-            GameObject wall = Instantiate(wallPrefab, wallSpawnPoints[index].position, Quaternion.identity);
-            walls.Add(wall.GetComponent<Wall>());
+            if (index != randomGapIndex)
+            {
+                GameObject wall = Instantiate(wallPrefab, wallSpawnPoints[index].position, Quaternion.identity);
+                walls.Add(wall);
 
-            wall.transform.parent = wallObjectParent.transform;
+                wall.transform.parent = wallObjectParent.transform;
 
-            wall.name = "Wall";
+                wall.name = "Wall";
+            }
+            else
+            {
+                GameObject gap = Instantiate(gapCollider, wallSpawnPoints[index].position, Quaternion.identity);
+                walls.Add(gap);
+
+                gap.transform.parent = wallObjectParent.transform;
+
+                gap.name = "Gap";
+            }
         }
 
-        int randomWallVisibility = Random.Range(0, 2);
+        int randomWallVisibility = Random.Range(0, 3);
 
         if (randomWallVisibility == 1)
         {
-            wallObjectParent.SetActive(true);
-        }
-        else
-        {
             wallObjectParent.SetActive(false);
-        }
-
-        int randomGapIndex = Random.Range(0, 6);
-
-        for (int index = 0; index < walls.Count; index++)
-        {
-            if (index == randomGapIndex)
-            {
-                walls[index].gameObject.SetActive(false);
-            }
         }
     }
 
@@ -121,16 +120,37 @@ public class Track : MonoBehaviour
     /// </summary>
     private void OnTrackReset()
     {
-        int randomGapIndex = Random.Range(0, 6);
-
         for (int index = 0; index < walls.Count; index++)
         {
-            walls[index].gameObject.SetActive(true);
-
-            if (index == randomGapIndex)
+            if (walls[index].GetComponent<Gap>())
             {
-                walls[index].gameObject.SetActive(false);
+                GameObject tempWall = walls[index].gameObject;
+                walls.RemoveAt(index);
+
+                GameObject wall = Instantiate(wallPrefab, gameObject.transform.GetChild(3).transform.GetChild(index).position, Quaternion.identity);
+                walls.Add(wall);
+
+                wall.transform.parent = gameObject.transform.GetChild(3).transform;
+
+                wall.name = "Wall";
+
+                Destroy(tempWall);
             }
         }
+
+        int randomGapIndex = Random.Range(0, 6);
+
+        Vector3 spawnPoint = walls[randomGapIndex].gameObject.transform.position;
+
+        Destroy(walls[randomGapIndex].gameObject);
+        walls.RemoveAt(randomGapIndex);
+
+
+        GameObject gap = Instantiate(gapCollider, spawnPoint, Quaternion.identity);
+        walls.Add(gap);
+
+        gap.transform.parent = gameObject.transform.GetChild(3).transform;
+
+        gap.name = "Gap";
     }
 }

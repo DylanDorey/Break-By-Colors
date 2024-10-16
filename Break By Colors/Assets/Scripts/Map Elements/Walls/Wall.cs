@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Author: [Dorey, Dylan]
+ * Last Updated: [10/13/2024]
+ * [A wall of a particular color that gives the player score when the player correctly matches with it]
+ */
+
 public class Wall : MonoBehaviour
 {
     [SerializeField]
     private int scoreValue;
     public Color[] wallColors = new Color[4] { Color.red, Color.blue, Color.green, Color.yellow };
 
-    [SerializeField]
     private Material thisMaterial;
     private PlayerData player;
 
@@ -30,7 +35,6 @@ public class Wall : MonoBehaviour
                 player.SetNewTargetColor(wallColors[Random.Range(0, wallColors.Length)]);
                 player.SetColorsMatched();
                 TrackEventBus.Publish(TrackEvent.changeSpeed);
-                gameObject.SetActive(false);
             }
             else
             {

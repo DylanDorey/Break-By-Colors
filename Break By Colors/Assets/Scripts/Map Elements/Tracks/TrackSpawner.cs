@@ -19,6 +19,9 @@ public class TrackSpawner : Singleton<TrackSpawner>
     [Tooltip("The likeliness that a wall will not spawn")]
     [Range(1, 5)] public int wallSpawnChance;
 
+    [Tooltip("The max speed the track can move at")]
+    [Range(1, 100)] public int maxTrackSpeed;
+
     [Tooltip("The speed at which the track increases speed over time")]
     [SerializeField]
     private float speedAccelerationMultiplier;
@@ -82,10 +85,15 @@ public class TrackSpawner : Singleton<TrackSpawner>
     /// </summary>
     public void UpdateTrackSpeed()
     {
-        foreach(GameObject trackObject in pool.trackPool)
+        //if the tracks speed is less than the max track speed
+        if (pool.trackPool[0].GetComponent<Track>().GetSpeed() < maxTrackSpeed)
         {
-            Track track = trackObject.GetComponent<Track>();
-            track.SetSpeed(track.GetSpeed() + speedAccelerationMultiplier);
+            //set each track's speed value to the new speed
+            foreach (GameObject trackObject in pool.trackPool)
+            {
+                Track track = trackObject.GetComponent<Track>();
+                track.SetSpeed(track.GetSpeed() + speedAccelerationMultiplier);
+            }
         }
     }
 }
