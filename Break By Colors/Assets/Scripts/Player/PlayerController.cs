@@ -32,6 +32,7 @@ public class PlayerController : Singleton<PlayerController>
 
     [SerializeField]
     private bool hasMoved = false;
+    public bool swiped = false;
 
     [SerializeField]
     private bool isGrounded = true;
@@ -39,8 +40,6 @@ public class PlayerController : Singleton<PlayerController>
     private Transform playerModelTransform;
 
     private Vector2 swipeDirection;
-    private float minHSwipeAmount = 2f;
-    private float minVSwipeAmount = 4f;
 
     private Player playerActionMap;
 
@@ -130,20 +129,20 @@ public class PlayerController : Singleton<PlayerController>
                 }
             }
         }
-        //otherwise, if the player swipes further/more on the y axis
-        else
-        {
-            //if the player swipes up on the y axis
-            if (swipeDirection.y > 0)
-            {
-                //if the player isGrounded
-                if (isGrounded)
-                {
-                    //add jump force to the player
-                    rb.AddForce((Vector3.up * 20f), ForceMode.Impulse);
-                }
-            }
-        }
+        ////otherwise, if the player swipes further/more on the y axis
+        //else
+        //{
+        //    //if the player swipes up on the y axis
+        //    if (swipeDirection.y > 0)
+        //    {
+        //        //if the player isGrounded
+        //        if (isGrounded)
+        //        {
+        //            //add jump force to the player
+        //            rb.AddForce((Vector3.up * 20f), ForceMode.Impulse);
+        //        }
+        //    }
+        //}
     }
 
     /// <summary>
@@ -205,7 +204,7 @@ public class PlayerController : Singleton<PlayerController>
         {
             if (isGrounded)
             {
-                rb.AddForce((Vector3.up * 45f), ForceMode.Impulse);
+                rb.AddForce((Vector3.up * 60f), ForceMode.Impulse);
             }
         }
     }
@@ -264,6 +263,7 @@ public class PlayerController : Singleton<PlayerController>
         //Store the correct functions for when a swipe is performed/started and a touch is canceled/lifted
         playerActionMap.PlayerMovement.Swipe.performed += OnSwipePerformed;
         playerActionMap.PlayerMovement.Touch.canceled += OnSwipeEnded;
+
 
         //initialize the player's rigidbody component
         rb = GetComponent<Rigidbody>();

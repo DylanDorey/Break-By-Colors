@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerJumpState : MonoBehaviour, IPlayerState
 {
-    //The desired turn direction
-    private float moveDirection;
-
     //reference to the player controller script
     private PlayerController playerController;
 

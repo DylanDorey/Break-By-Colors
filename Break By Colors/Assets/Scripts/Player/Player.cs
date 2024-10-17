@@ -71,6 +71,15 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Tap"",
+                    ""type"": ""Button"",
+                    ""id"": ""969f8f50-ea20-48af-82f4-39f01bf3f597"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -128,6 +137,17 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""action"": ""Touch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aea7daa9-8b8e-4a47-bce4-1a9aa2648e82"",
+                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -141,6 +161,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
         m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
         m_PlayerMovement_Swipe = m_PlayerMovement.FindAction("Swipe", throwIfNotFound: true);
         m_PlayerMovement_Touch = m_PlayerMovement.FindAction("Touch", throwIfNotFound: true);
+        m_PlayerMovement_Tap = m_PlayerMovement.FindAction("Tap", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +228,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_Jump;
     private readonly InputAction m_PlayerMovement_Swipe;
     private readonly InputAction m_PlayerMovement_Touch;
+    private readonly InputAction m_PlayerMovement_Tap;
     public struct PlayerMovementActions
     {
         private @Player m_Wrapper;
@@ -216,6 +238,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
         public InputAction @Swipe => m_Wrapper.m_PlayerMovement_Swipe;
         public InputAction @Touch => m_Wrapper.m_PlayerMovement_Touch;
+        public InputAction @Tap => m_Wrapper.m_PlayerMovement_Tap;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -240,6 +263,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Touch.started += instance.OnTouch;
             @Touch.performed += instance.OnTouch;
             @Touch.canceled += instance.OnTouch;
+            @Tap.started += instance.OnTap;
+            @Tap.performed += instance.OnTap;
+            @Tap.canceled += instance.OnTap;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -259,6 +285,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Touch.started -= instance.OnTouch;
             @Touch.performed -= instance.OnTouch;
             @Touch.canceled -= instance.OnTouch;
+            @Tap.started -= instance.OnTap;
+            @Tap.performed -= instance.OnTap;
+            @Tap.canceled -= instance.OnTap;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -283,5 +312,6 @@ public partial class @Player: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnSwipe(InputAction.CallbackContext context);
         void OnTouch(InputAction.CallbackContext context);
+        void OnTap(InputAction.CallbackContext context);
     }
 }

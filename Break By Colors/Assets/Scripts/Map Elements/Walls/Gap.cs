@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Gap : MonoBehaviour
 {
+    [SerializeField]
+    private int scoreValue;
+
     private PlayerData player;
     public Color[] wallColors = new Color[4] { Color.red, Color.blue, Color.green, Color.yellow };
 
@@ -13,7 +16,7 @@ public class Gap : MonoBehaviour
         {
             player = other.gameObject.GetComponent<PlayerData>();
             player.SetNewTargetColor(wallColors[Random.Range(0, wallColors.Length)]);
-            //player.AddScore(scoreValue);
+            player.AddCurrentScore(scoreValue);
         }
     }
 }
