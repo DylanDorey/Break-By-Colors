@@ -12,7 +12,7 @@ public class TrackObjectPool : MonoBehaviour
 {
     //the max size of tracks in the pool
     public int maxPoolSize;
-    public GameObject trackPrefab;
+    public GameObject track50Prefab;
     private GameObject trackParent;
 
     public List<GameObject> trackPool;
@@ -40,8 +40,10 @@ public class TrackObjectPool : MonoBehaviour
 
         for (int index = 0; index < maxPoolSize; index++)
         { 
-            GameObject track = Instantiate(trackPrefab, Vector3.zero, Quaternion.identity);
+            GameObject track = Instantiate(track50Prefab, Vector3.zero, Quaternion.identity);
             trackPool.Add(track);
+
+            
 
             track.transform.parent = trackParent.transform;
             track.GetComponent<Track>().InitializeTrack(TrackSpawner.Instance.trackSize, TrackSpawner.Instance.trackLength, TrackSpawner.Instance.startSpeed, wallSpawnChance);

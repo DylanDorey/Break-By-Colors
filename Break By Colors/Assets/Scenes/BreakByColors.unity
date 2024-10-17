@@ -1821,9 +1821,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861340612b4c8864ab096cc5c786d115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 20
+  startSpeed: 25
   trackLength: 6
-  trackSize: 30
+  trackSize: 50
   wallSpawnChance: 1
   maxTrackSpeed: 50
   speedAccelerationMultiplier: 2
@@ -1842,7 +1842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPoolSize: 0
-  trackPrefab: {fileID: 875315526134206385, guid: f00ce4d3148896349a5072d10545eff5,
+  track50Prefab: {fileID: 2715702848744774503, guid: dcc58bf105fd4e348b55febd008eae3d,
     type: 3}
   trackPool: []
 --- !u!1 &1016149260

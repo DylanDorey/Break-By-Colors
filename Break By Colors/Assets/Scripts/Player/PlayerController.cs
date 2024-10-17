@@ -205,7 +205,7 @@ public class PlayerController : Singleton<PlayerController>
         {
             if (isGrounded)
             {
-                rb.AddForce((Vector3.up * 35f), ForceMode.Impulse);
+                rb.AddForce((Vector3.up * 45f), ForceMode.Impulse);
             }
         }
     }

@@ -28,6 +28,9 @@ public class TrackSpawner : Singleton<TrackSpawner>
 
     public bool moving = false;
 
+    public GameObject track40Prefab;
+    public GameObject track30Prefab;
+
     //reference to the drone object pool
     public TrackObjectPool pool;
 
@@ -94,6 +97,22 @@ public class TrackSpawner : Singleton<TrackSpawner>
                 Track track = trackObject.GetComponent<Track>();
                 track.SetSpeed(track.GetSpeed() + speedAccelerationMultiplier);
             }
+        }
+    }
+
+    /// <summary>
+    /// Changes the track size as the players score increases
+    /// </summary>
+    public void UpdateTrackSize()
+    {
+        switch (PlayerData.Instance.GetCurrentScore())
+        {
+            case > 10:
+
+                break;
+
+            default:
+                break;
         }
     }
 }

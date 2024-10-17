@@ -21,6 +21,8 @@ public class Track : MonoBehaviour
     public GameObject wallPrefab;
     public GameObject gapCollider;
 
+    public GameObject nextTrack;
+
     public int wallSpawnChance;
 
     private void FixedUpdate()
@@ -40,8 +42,10 @@ public class Track : MonoBehaviour
         if (transform.position.z < -localTrackSize)
         {
             //go back to the start of the track length
-            transform.position = spawnPos;
             OnTrackReset();
+            /////////////////////////////////////////////////////////////////
+            transform.position = spawnPos;
+            //OnTrackReset();
         }
 
         //move along the z axis towards the player at a particular speed
@@ -152,5 +156,7 @@ public class Track : MonoBehaviour
         gap.transform.parent = gameObject.transform.GetChild(3).transform;
 
         gap.name = "Gap";
+
+        TrackSpawner.Instance.UpdateTrackSize();
     }
 }
