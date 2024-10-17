@@ -106,13 +106,6 @@ public class Track : MonoBehaviour
                 gap.name = "Gap";
             }
         }
-
-        int randomWallVisibility = Random.Range(0, 3);
-
-        if (randomWallVisibility == 1)
-        {
-            wallObjectParent.SetActive(false);
-        }
     }
 
     /// <summary>
