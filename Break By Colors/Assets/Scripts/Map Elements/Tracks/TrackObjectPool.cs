@@ -43,11 +43,19 @@ public class TrackObjectPool : MonoBehaviour
             GameObject track = Instantiate(track50Prefab, Vector3.zero, Quaternion.identity);
             trackPool.Add(track);
 
-            
-
             track.transform.parent = trackParent.transform;
-            track.GetComponent<Track>().InitializeTrack(TrackSpawner.Instance.trackSize, TrackSpawner.Instance.trackLength, TrackSpawner.Instance.startSpeed, wallSpawnChance);
+            track.GetComponent<Track>().InitializeTrack(TrackSpawner.Instance.trackSize, TrackSpawner.Instance.startSpeed, wallSpawnChance);
             track.name = "Track" + index;
+
+            if(index == maxPoolSize - 1)
+            {
+                track.GetComponent<Track>().nextTrack = trackPool[0];
+            }
+
+            if(index != 0)
+            {
+                trackPool[index-1].GetComponent<Track>().nextTrack = track;
+            }
         }
     }
 

@@ -13,8 +13,6 @@ public class Track : MonoBehaviour
     //speed of the track
     private float speed;
     private int localTrackSize;
-    private int trackLength;
-    private Vector3 spawnPos;
 
     public Transform[] wallSpawnPoints;
     public List<GameObject> walls;
@@ -44,7 +42,7 @@ public class Track : MonoBehaviour
             //go back to the start of the track length
             OnTrackReset();
             /////////////////////////////////////////////////////////////////
-            transform.position = spawnPos;
+            transform.position = SetSpawnPoint();
             //OnTrackReset();
         }
 
@@ -68,14 +66,12 @@ public class Track : MonoBehaviour
     /// <param name="trackSize"></param>
     /// <param name="totalTrackLength"></param>
     /// <param name="trackSpeed"></param>
-    public void InitializeTrack(int trackSize, int totalTrackLength, float startSpeed, int spawnChance)
+    public void InitializeTrack(int trackSize, float startSpeed, int spawnChance)
     {
         localTrackSize = trackSize;
-        trackLength = totalTrackLength;
         speed = startSpeed;
         wallSpawnChance = spawnChance;
 
-        spawnPos = new Vector3(0f, -0.7f, (localTrackSize * trackLength) - (localTrackSize));
         InitializeWalls();
     }
 
@@ -156,7 +152,14 @@ public class Track : MonoBehaviour
         gap.transform.parent = gameObject.transform.GetChild(3).transform;
 
         gap.name = "Gap";
+    }
 
-        TrackSpawner.Instance.UpdateTrackSize();
+    /// <summary>
+    /// Sets the spawn point of the current track to the next track in the track pool list
+    /// </summary>
+    /// <returns></returns>
+    private Vector3 SetSpawnPoint()
+    {
+        return GetComponent<Track>().nextTrack.transform.GetChild(1).transform.position;
     }
 }

@@ -18,6 +18,16 @@ public class PlayerData : Singleton<PlayerData>
     private int currentScore;
     private int highScore;
 
+    private void OnEnable()
+    {
+        GameEventBus.Subscribe(GameState.gameOver, ResetCurrentScore);
+    }
+
+    private void OnDisable()
+    {
+        GameEventBus.Unsubscribe(GameState.gameOver, ResetCurrentScore);
+    }
+
     private void Start()
     {
         InitializePlayerData();
@@ -43,7 +53,7 @@ public class PlayerData : Singleton<PlayerData>
     /// Setter for the current score
     /// </summary>
     /// <param name="addedAmount"> the amount of points to be added to the current score </param>
-    public void SetCurrentScore(int addedAmount)
+    public void AddCurrentScore(int addedAmount)
     {
         currentScore += addedAmount;
     }
@@ -123,5 +133,10 @@ public class PlayerData : Singleton<PlayerData>
     {
         targetColor = newColor;
         playerColor = targetColor;
+    }
+
+    public void ResetCurrentScore()
+    {
+        currentScore = 0;
     }
 }

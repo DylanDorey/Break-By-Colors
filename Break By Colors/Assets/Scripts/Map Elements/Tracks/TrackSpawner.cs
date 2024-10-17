@@ -28,9 +28,6 @@ public class TrackSpawner : Singleton<TrackSpawner>
 
     public bool moving = false;
 
-    public GameObject track40Prefab;
-    public GameObject track30Prefab;
-
     //reference to the drone object pool
     public TrackObjectPool pool;
 
