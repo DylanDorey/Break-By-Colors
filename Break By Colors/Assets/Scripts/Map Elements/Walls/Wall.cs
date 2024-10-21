@@ -12,15 +12,23 @@ public class Wall : MonoBehaviour
 {
     [SerializeField]
     private int scoreValue;
-    public Color[] wallColors = new Color[4] { Color.red, Color.blue, Color.green, Color.yellow };
 
-    private Material thisMaterial;
+    private readonly Color[] wallColors = new Color[4] { Color.red, Color.blue, Color.cyan, Color.yellow };
+    public Material[] wallMaterials;
+    public Color thisWallColor;
+
+    private Renderer wallRenderer;
     private PlayerData player;
 
     private void Start()
-    { 
-        thisMaterial = transform.GetChild(0).GetComponent<Renderer>().material;
-        thisMaterial.color = wallColors[Random.Range(0, wallColors.Length)];
+    {
+        //thisMaterial = transform.GetChild(0).GetComponent<Renderer>().material;
+
+        wallRenderer = transform.GetChild(0).GetComponent<Renderer>();
+        wallRenderer.sharedMaterial = wallMaterials[Random.Range(0, 4)];
+        thisWallColor = InitializeCurrentColor();
+
+        //thisMaterial.color = wallColors[Random.Range(0, wallColors.Length)];
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,11 +37,9 @@ public class Wall : MonoBehaviour
         {
             player = other.gameObject.GetComponent<PlayerData>();
 
-            if (player.GetTargetColor() == thisMaterial.color)
+            if (player.GetTargetColor() == thisWallColor)
             {
-                //player.AddScore(scoreValue);
                 player.SetNewTargetColor(wallColors[Random.Range(0, wallColors.Length)]);
-                player.SetColorsMatched();
                 player.AddCurrentScore(scoreValue);
                 TrackEventBus.Publish(TrackEvent.changeSpeed);
             }
@@ -43,6 +49,26 @@ public class Wall : MonoBehaviour
                 //player.gameObject.GetComponent<PlayerController>().ResetPlayerPosition();
                 GameEventBus.Publish(GameState.gameOver);
             }
+        }
+    }
+
+    private Color InitializeCurrentColor()
+    {
+        if(wallRenderer.sharedMaterial == wallMaterials[0])
+        {
+            return Color.red;
+        }
+        else if (wallRenderer.sharedMaterial == wallMaterials[1])
+        {
+            return Color.blue;
+        }
+        else if (wallRenderer.sharedMaterial == wallMaterials[2])
+        {
+            return Color.cyan;
+        }
+        else
+        {
+            return Color.yellow;
         }
     }
 }

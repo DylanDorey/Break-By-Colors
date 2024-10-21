@@ -13,7 +13,7 @@ public class PlayerData : Singleton<PlayerData>
     private Color targetColor;
     private Color playerColor;
     private int colorsMatched = 0;
-    private readonly Color[] wallColors = new Color[4] { Color.red, Color.blue, Color.green, Color.yellow };
+    private readonly Color[] wallColors = new Color[4] { Color.red, Color.blue, Color.cyan, Color.yellow };
 
     private int currentScore;
     private int highScore;
@@ -106,14 +106,6 @@ public class PlayerData : Singleton<PlayerData>
     public Color GetTargetColor()
     {
         return targetColor;
-    }
-
-    /// <summary>
-    /// Increases the colors matched variable
-    /// </summary>
-    public void SetColorsMatched()//int increaseByValue)
-    {
-        colorsMatched += 1;
     }
 
     /// <summary>
