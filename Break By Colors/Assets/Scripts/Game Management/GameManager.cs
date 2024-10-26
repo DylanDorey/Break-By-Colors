@@ -12,6 +12,7 @@ using UnityEngine;
 public enum GameState
 {
     mainMenu,
+    settingsMenu,
     initializeGame,
     startGame,
     pauseGame,
@@ -71,6 +72,15 @@ public class GameManager : Singleton<GameManager>
     {
         //publish the mainMenu game event
         GameEventBus.Publish(GameState.returnToMenu);
+    }
+
+    /// <summary>
+    /// This will bring the player to the settings menu
+    /// </summary>
+    public void GoToSettings()
+    {
+        //publish the settingsMenu game event
+        GameEventBus.Publish(GameState.settingsMenu);
     }
 
     /// <summary>
