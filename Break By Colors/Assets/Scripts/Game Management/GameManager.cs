@@ -23,6 +23,8 @@ public enum GameState
 
 public class GameManager : Singleton<GameManager>
 {
+    public bool audioOff = false;
+
     private void Start()
     {
         //start the game in the main menu by publishing the menu game event
