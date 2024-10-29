@@ -248,7 +248,7 @@ public class PlayerController : Singleton<PlayerController>
     /// </summary>
     private void BallRotate()
     {
-        playerModelTransform.Rotate(-TrackSpawner.Instance.pool.trackPool[0].gameObject.GetComponent<Track>().GetSpeed() / 20f, 0f, 0f);
+        playerModelTransform.Rotate(TrackSpawner.Instance.pool.trackPool[0].gameObject.GetComponent<Track>().GetSpeed() / 20f, .7f, .5f);
     }
 
     /// <summary>

@@ -13,7 +13,7 @@ public class Wall : MonoBehaviour
     [SerializeField]
     private int scoreValue;
 
-    private readonly Color[] wallColors = new Color[4] { Color.red, Color.blue, Color.cyan, Color.yellow };
+    private readonly Color[] wallColors = new Color[4] { Color.red * 20f, Color.blue * 20f, Color.cyan * 20f, Color.yellow * 20f };
     public Material[] wallMaterials;
     public Color thisWallColor;
 
@@ -56,19 +56,19 @@ public class Wall : MonoBehaviour
     {
         if(wallRenderer.sharedMaterial == wallMaterials[0])
         {
-            return Color.red;
+            return Color.red * 20f;
         }
         else if (wallRenderer.sharedMaterial == wallMaterials[1])
         {
-            return Color.blue;
+            return Color.blue * 20f;
         }
         else if (wallRenderer.sharedMaterial == wallMaterials[2])
         {
-            return Color.cyan;
+            return Color.cyan * 20f;
         }
         else
         {
-            return Color.yellow;
+            return Color.yellow * 20f;
         }
     }
 }

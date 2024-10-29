@@ -8,7 +8,7 @@ public class Gap : MonoBehaviour
     private int scoreValue;
 
     private PlayerData player;
-    private readonly Color[] wallColors = new Color[4] { Color.red, Color.blue, Color.cyan, Color.yellow };
+    private readonly Color[] wallColors = new Color[4] { Color.red * 20f, Color.blue * 20f, Color.cyan * 20f, Color.yellow * 20f };
 
     private void OnTriggerEnter(Collider other)
     {

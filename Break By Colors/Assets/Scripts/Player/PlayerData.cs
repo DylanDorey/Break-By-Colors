@@ -12,11 +12,15 @@ public class PlayerData : Singleton<PlayerData>
 {
     private Color targetColor;
     private Color playerColor;
+    private Material playerMat;
     private int colorsMatched = 0;
-    private readonly Color[] wallColors = new Color[4] { Color.red, Color.blue, Color.cyan, Color.yellow };
+    private readonly Color[] wallColors = new Color[4] { Color.red * 20f, Color.blue * 20f, Color.cyan * 20f, Color.yellow * 20f };
 
     private int currentScore;
     private int highScore;
+
+    [SerializeField]
+    private float glowIntensity;
 
     private void OnEnable()
     {
@@ -43,10 +47,14 @@ public class PlayerData : Singleton<PlayerData>
     /// </summary>
     public void InitializePlayerData()
     {
+        playerMat = transform.GetChild(0).GetComponent<Renderer>().material;
+        playerMat.EnableKeyword("_EMISSION");
+
         //color data
-        playerColor = transform.GetChild(0).GetComponent<Renderer>().material.color;
         targetColor = wallColors[Random.Range(0, wallColors.Length)];
-        playerColor = targetColor;
+        //playerColor = targetColor;
+
+        playerMat.SetColor("_EmissionColor", targetColor);
     }
 
     /// <summary>
@@ -124,7 +132,9 @@ public class PlayerData : Singleton<PlayerData>
     public void SetNewTargetColor(Color newColor)
     {
         targetColor = newColor;
-        playerColor = targetColor;
+        //playerColor = targetColor;
+
+        playerMat.SetColor("_EmissionColor", targetColor);
     }
 
     public void ResetCurrentScore()
