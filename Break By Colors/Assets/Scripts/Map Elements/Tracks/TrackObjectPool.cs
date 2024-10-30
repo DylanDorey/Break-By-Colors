@@ -95,6 +95,6 @@ public class TrackObjectPool : MonoBehaviour
 
         trackParent = null;
 
-        GameEventBus.Publish(GameState.mainMenu);
+        GameEventBus.Publish(GameState.returnToMenu);
     }
 }

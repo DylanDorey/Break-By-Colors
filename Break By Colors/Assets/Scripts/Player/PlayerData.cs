@@ -13,23 +13,20 @@ public class PlayerData : Singleton<PlayerData>
     private Color targetColor;
     private Color playerColor;
     private Material playerMat;
-    private int colorsMatched = 0;
     private readonly Color[] wallColors = new Color[4] { Color.red * 20f, Color.blue * 20f, Color.cyan * 20f, Color.yellow * 20f };
 
-    private int currentScore;
-    private int highScore;
-
     [SerializeField]
-    private float glowIntensity;
+    private int currentScore;
+    public int highScore;
 
     private void OnEnable()
     {
-        GameEventBus.Subscribe(GameState.gameOver, ResetCurrentScore);
+        GameEventBus.Subscribe(GameState.gameOver, CreateNewHighScore);
     }
 
     private void OnDisable()
     {
-        GameEventBus.Unsubscribe(GameState.gameOver, ResetCurrentScore);
+        GameEventBus.Unsubscribe(GameState.gameOver, CreateNewHighScore);
     }
 
     private void Start()
@@ -67,26 +64,17 @@ public class PlayerData : Singleton<PlayerData>
     }
 
     /// <summary>
-    /// Setter for the high score
-    /// </summary>
-    /// <param name="newHighScore">the new high score of the player</param>
-    public int SetHighScore(int newHighScore)
-    {
-        highScore = newHighScore;
-
-        return highScore;
-    }
-
-    /// <summary>
     /// Creates a new high score for the player
     /// </summary>
-    /// <param name="potentialNewHighScore">the potential new high score that the player just earned (current score)</param>
-    public void CreateNewHighScore(int potentialNewHighScore)
+    public void CreateNewHighScore()
     {
-        if(potentialNewHighScore > highScore)
+        if(currentScore > highScore)
         {
-            SetHighScore(potentialNewHighScore);
+            highScore = currentScore;
         }
+
+        //highScore = 0;
+        currentScore = 0;
     }
 
     /// <summary>
@@ -117,15 +105,6 @@ public class PlayerData : Singleton<PlayerData>
     }
 
     /// <summary>
-    /// Returns the amount of colors matched
-    /// </summary>
-    /// <returns>the amount of colors matched by the player </returns>
-    public int GetColorsMatched()
-    {
-        return colorsMatched;
-    }
-
-    /// <summary>
     /// Sets the new target color for the player
     /// </summary>
     /// <param name="newColor"></param>
@@ -135,10 +114,5 @@ public class PlayerData : Singleton<PlayerData>
         //playerColor = targetColor;
 
         playerMat.SetColor("_EmissionColor", targetColor);
-    }
-
-    public void ResetCurrentScore()
-    {
-        currentScore = 0;
     }
 }

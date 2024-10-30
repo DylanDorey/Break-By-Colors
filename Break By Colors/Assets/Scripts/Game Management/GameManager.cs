@@ -11,7 +11,7 @@ using UnityEngine;
 //the various game states
 public enum GameState
 {
-    mainMenu,
+    gameLaunch,
     settingsMenu,
     initializeGame,
     startGame,
@@ -23,12 +23,13 @@ public enum GameState
 
 public class GameManager : Singleton<GameManager>
 {
-    public bool audioOff = false;
+    public bool audioSetting = false;
+    public bool tutorialSetting = false;
 
     private void Start()
     {
         //start the game in the main menu by publishing the menu game event
-        GameEventBus.Publish(GameState.mainMenu);
+        GameEventBus.Publish(GameState.gameLaunch);
     }
 
     /// <summary>

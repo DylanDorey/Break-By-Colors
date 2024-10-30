@@ -35,20 +35,22 @@ public class TrackSpawner : Singleton<TrackSpawner>
     {
         TrackEventBus.Subscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
 
-        GameEventBus.Subscribe(GameState.mainMenu, StartSpawning);
+        GameEventBus.Subscribe(GameState.gameLaunch, StartSpawning);
+        GameEventBus.Subscribe(GameState.returnToMenu, StartSpawning);
         GameEventBus.Subscribe(GameState.startGame, StartMoving);
         GameEventBus.Subscribe(GameState.gameOver, StopMoving);
-        GameEventBus.Subscribe(GameState.returnToMenu, ResetTrack);
+        GameEventBus.Subscribe(GameState.gameOver, ResetTrack);
     }
 
     private void OnDisable()
     {
         TrackEventBus.Unsubscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
 
-        GameEventBus.Unsubscribe(GameState.mainMenu, StartSpawning);
+        GameEventBus.Unsubscribe(GameState.gameLaunch, StartSpawning);
+        GameEventBus.Unsubscribe(GameState.returnToMenu, StartSpawning);
         GameEventBus.Unsubscribe(GameState.startGame, StartMoving);
         GameEventBus.Unsubscribe(GameState.gameOver, StopMoving);
-        GameEventBus.Unsubscribe(GameState.returnToMenu, ResetTrack);
+        GameEventBus.Unsubscribe(GameState.gameOver, ResetTrack);
     }
 
     private void StartSpawning()

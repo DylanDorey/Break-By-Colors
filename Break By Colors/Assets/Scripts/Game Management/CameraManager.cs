@@ -18,13 +18,15 @@ public class CameraManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventBus.Subscribe(GameState.mainMenu, ReturnToCenter);
+        GameEventBus.Subscribe(GameState.gameLaunch, ReturnToCenter);
+        GameEventBus.Subscribe(GameState.returnToMenu, ReturnToCenter);
         GameEventBus.Subscribe(GameState.settingsMenu, MoveToSettingsPosition);
     }
 
     private void OnDisable()
     {
-        GameEventBus.Subscribe(GameState.mainMenu, ReturnToCenter);
+        GameEventBus.Unsubscribe(GameState.gameLaunch, ReturnToCenter);
+        GameEventBus.Subscribe(GameState.returnToMenu, ReturnToCenter);
         GameEventBus.Unsubscribe(GameState.settingsMenu, MoveToSettingsPosition);
     }
 

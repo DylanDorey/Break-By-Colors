@@ -16,11 +16,13 @@ public class UIManager : Singleton<UIManager>
 
     //player's score
     public TextMeshProUGUI score;
+    public TextMeshProUGUI highScore;
 
 
     private void OnEnable()
     {
-        GameEventBus.Subscribe(GameState.mainMenu, EnableMenuUI);
+        GameEventBus.Subscribe(GameState.gameLaunch, EnableMenuUI);
+        GameEventBus.Subscribe(GameState.returnToMenu, EnableMenuUI);
         GameEventBus.Subscribe(GameState.settingsMenu, EnableSettingsUI);
         GameEventBus.Subscribe(GameState.startGame, EnablePlayingUI);
         GameEventBus.Subscribe(GameState.pauseGame, EnablePausedUI);
@@ -30,7 +32,8 @@ public class UIManager : Singleton<UIManager>
 
     private void OnDisable()
     {
-        GameEventBus.Unsubscribe(GameState.mainMenu, EnableMenuUI);
+        GameEventBus.Unsubscribe(GameState.gameLaunch, EnableMenuUI);
+        GameEventBus.Unsubscribe(GameState.returnToMenu, EnableMenuUI);
         GameEventBus.Unsubscribe(GameState.settingsMenu, EnableSettingsUI);
         GameEventBus.Unsubscribe(GameState.startGame, EnablePlayingUI);
         GameEventBus.Unsubscribe(GameState.pauseGame, EnablePausedUI);
@@ -42,6 +45,7 @@ public class UIManager : Singleton<UIManager>
     {
         targetColor.color = PlayerData.Instance.GetTargetColor();
         score.text = PlayerData.Instance.GetCurrentScore().ToString();
+        highScore.text = PlayerData.Instance.GetHighScore().ToString();
     }
 
     /// <summary>
