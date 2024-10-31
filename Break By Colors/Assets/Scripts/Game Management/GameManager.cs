@@ -95,5 +95,18 @@ public class GameManager : Singleton<GameManager>
 
         //quit the application
         Application.Quit();
+
+        //Application.OpenURL(String URL)
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public void ChangeAuidoSetting()
+    {
+        audioSetting = !audioSetting;
+
+        Debug.Log(audioSetting);
     }
 }

@@ -129,20 +129,20 @@ public class PlayerController : Singleton<PlayerController>
                 }
             }
         }
-        ////otherwise, if the player swipes further/more on the y axis
-        //else
-        //{
-        //    //if the player swipes up on the y axis
-        //    if (swipeDirection.y > 0)
-        //    {
-        //        //if the player isGrounded
-        //        if (isGrounded)
-        //        {
-        //            //add jump force to the player
-        //            rb.AddForce((Vector3.up * 20f), ForceMode.Impulse);
-        //        }
-        //    }
-        //}
+        //otherwise, if the player swipes further/more on the y axis
+        else
+        {
+            //if the player swipes up on the y axis
+            if (swipeDirection.y > 0)
+            {
+                //if the player isGrounded
+                if (isGrounded)
+                {
+                    //add jump force to the player
+                    rb.AddForce((Vector3.up * 30f), ForceMode.Impulse);
+                }
+            }
+        }
     }
 
     /// <summary>
