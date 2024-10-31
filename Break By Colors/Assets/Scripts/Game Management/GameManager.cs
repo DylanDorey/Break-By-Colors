@@ -23,7 +23,7 @@ public enum GameState
 
 public class GameManager : Singleton<GameManager>
 {
-    public bool audioSetting = false;
+    public bool audioSetting = true;
     public bool tutorialSetting = false;
 
     private void Start()
@@ -100,13 +100,22 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
-    /// 
+    /// Changes the audio toggle to true or false when toggled
     /// </summary>
-    /// <returns></returns>
-    public void ChangeAuidoSetting()
+    public void SetAudioSetting()
     {
-        audioSetting = !audioSetting;
+        //if the audio setting is true/false set it to the opposite value
+        Debug.Log("Current: " + audioSetting);
 
-        Debug.Log(audioSetting);
+        if(audioSetting)
+        {
+            audioSetting = false;
+        }
+        else
+        {
+            audioSetting = true;
+        }
+
+        Debug.Log("Changed To: " + audioSetting);
     }
 }
