@@ -10,8 +10,8 @@ using UnityEngine;
 
 public class PlayerData : Singleton<PlayerData>
 {
-    private Color targetColor;
-    private Color playerColor;
+    public Color targetColor;
+    public Color playerColor;
     private Material playerMat;
     private readonly Color[] wallColors = new Color[4] { Color.red * 20f, Color.blue * 20f, Color.cyan * 20f, Color.yellow * 20f };
 

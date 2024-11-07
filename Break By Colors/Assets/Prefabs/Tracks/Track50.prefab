@@ -197,7 +197,7 @@ MonoBehaviour:
   - {fileID: 1918930094256441831}
   - {fileID: 5411090062012828747}
   walls: []
-  wallPrefab: {fileID: 7970282993144481191, guid: 89f53fa79ea57ef43a0b59a1320693dd,
+  wallPrefab: {fileID: 5116268712622302893, guid: 807c52030e89a474aba27c282e41ef41,
     type: 3}
   gapCollider: {fileID: 8095244701227623907, guid: 0c2ff5029009eb1419597306d6bb85f9,
     type: 3}

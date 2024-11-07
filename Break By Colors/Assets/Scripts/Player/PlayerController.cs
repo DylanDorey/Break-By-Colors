@@ -17,11 +17,12 @@ public enum MoveDirection
 
 public class PlayerController : Singleton<PlayerController>
 {
+
     [Range(0.0f, 1.0f)]
     [Tooltip("How fast the player controller moves")]
     public float movementDampaner;
 
-    [Range(0.0f, 1.0f)]
+    [Range(0.1f, 1.0f)]
     [Tooltip("The time before another movement can be made")]
     public float movementDelay;
 
@@ -60,7 +61,7 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     private void OnDisable()
-    { 
+    {
         GameEventBus.Unsubscribe(GameState.returnToMenu, ResetPlayerPosition);
     }
 
@@ -93,11 +94,13 @@ public class PlayerController : Singleton<PlayerController>
     /// <param name="context"> the state of the input recieved </param>
     public void OnSwipeEnded(InputAction.CallbackContext context)
     {
+        swipeDirection = context.ReadValue<Vector2>();
+
         //if the player swipes further/more on the x axis
         if (Mathf.Abs(swipeDirection.x) > Mathf.Abs(swipeDirection.y))
         {
             //if the player swipes right on the x axis
-            if (swipeDirection.x > 0f)
+            if (swipeDirection.x > 1f)
             {
                 //if the player hasnt moved, and the players x position is currently less than 0.1, and isGrounded
                 if (!hasMoved && transform.position.x < 0.1f && isGrounded)
@@ -113,7 +116,7 @@ public class PlayerController : Singleton<PlayerController>
                 }
             }
             //if the player swipes left on the x axis
-            else if (swipeDirection.x < 0f)
+            else if (swipeDirection.x < 1f)
             {
                 //if the player hasnt moved, and the players x position is currently greater than -0.1, and isGrounded
                 if (!hasMoved && transform.position.x > -0.1f && isGrounded)
@@ -133,13 +136,19 @@ public class PlayerController : Singleton<PlayerController>
         else
         {
             //if the player swipes up on the y axis
-            if (swipeDirection.y > 0)
+            if (swipeDirection.y > 1f)
             {
                 //if the player isGrounded
                 if (isGrounded)
                 {
                     //add jump force to the player
-                    rb.AddForce((Vector3.up * 30f), ForceMode.Impulse);
+                    //rb.AddForce((Vector3.up * 30f), ForceMode.Impulse);
+                    targetPos = new Vector3(transform.position.x, 2.5f, transform.position.z);
+
+                    //add movement delay
+                    StartCoroutine(MovementDelay());
+
+                    StartCoroutine(AirStall());
                 }
             }
         }
@@ -204,7 +213,13 @@ public class PlayerController : Singleton<PlayerController>
         {
             if (isGrounded)
             {
-                rb.AddForce((Vector3.up * 60f), ForceMode.Impulse);
+                //rb.AddForce((Vector3.up * 60f), ForceMode.Impulse);
+                targetPos = new Vector3(transform.position.x, 2.5f, transform.position.z);
+
+                //add movement delay
+                StartCoroutine(MovementDelay());
+
+                StartCoroutine(AirStall());
             }
         }
     }
@@ -225,6 +240,20 @@ public class PlayerController : Singleton<PlayerController>
 
         //set hasMoved back to false
         hasMoved = false;
+    }
+
+    /// <summary>
+    /// Adds a delay between each movement made by the player
+    /// </summary>
+    /// <returns> time between movements </returns>
+    private IEnumerator AirStall()
+    {
+        yield return new WaitForSeconds(.3f);
+
+        targetPos = new Vector3(transform.position.x, 0f, transform.position.z);
+
+        //add movement delay
+        StartCoroutine(MovementDelay());
     }
 
     /// <summary>
@@ -261,8 +290,9 @@ public class PlayerController : Singleton<PlayerController>
         playerActionMap.Enable();
 
         //Store the correct functions for when a swipe is performed/started and a touch is canceled/lifted
-        playerActionMap.PlayerMovement.Swipe.performed += OnSwipePerformed;
-        playerActionMap.PlayerMovement.Touch.canceled += OnSwipeEnded;
+        //playerActionMap.PlayerMovement.Swipe.performed += OnSwipePerformed;
+        //playerActionMap.PlayerMovement.Touch.canceled += OnSwipeEnded;
+        playerActionMap.PlayerMovement.Swipe.performed += OnSwipeEnded;
 
 
         //initialize the player's rigidbody component

@@ -94,9 +94,9 @@ public class Save : Singleton<Save>
         save.audioSetting = GameManager.Instance.audioSetting;
         save.tutorialSetting = GameManager.Instance.tutorialSetting;
 
-        save.highScore = 0;
-        save.audioSetting = true;
-        save.tutorialSetting = false;
+        //save.highScore = 0;
+        //save.audioSetting = true;
+        //save.tutorialSetting = false;
 
         //return the save object
         return save;

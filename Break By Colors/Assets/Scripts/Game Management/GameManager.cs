@@ -23,6 +23,8 @@ public enum GameState
 
 public class GameManager : Singleton<GameManager>
 {
+    public bool paused = false;
+
     public bool audioSetting = true;
     public bool tutorialSetting = false;
 
@@ -78,6 +80,21 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
+    /// This will return the player to the menu
+    /// </summary>
+    public void ReturnToMenuFromPause()
+    {
+        //publish the pauseGame game event
+        GameEventBus.Publish(GameState.resumeGame);
+
+        //publish the pauseGame game event
+        GameEventBus.Publish(GameState.gameOver);
+
+        //publish the mainMenu game event
+        GameEventBus.Publish(GameState.returnToMenu);
+    }
+
+    /// <summary>
     /// This will bring the player to the settings menu
     /// </summary>
     public void GoToSettings()
@@ -97,6 +114,14 @@ public class GameManager : Singleton<GameManager>
         Application.Quit();
 
         //Application.OpenURL(String URL)
+    }
+
+    /// <summary>
+    /// This will allow the user to open a player feedback form
+    /// </summary>
+    public void OpenFeedbackForm()
+    {
+        //Application.OpenURL();
     }
 
     /// <summary>

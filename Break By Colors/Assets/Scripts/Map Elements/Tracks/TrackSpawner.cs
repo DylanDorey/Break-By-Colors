@@ -98,20 +98,4 @@ public class TrackSpawner : Singleton<TrackSpawner>
             }
         }
     }
-
-    /// <summary>
-    /// Changes the track size as the players score increases
-    /// </summary>
-    public void UpdateTrackSize()
-    {
-        switch (PlayerData.Instance.GetCurrentScore())
-        {
-            case > 10:
-
-                break;
-
-            default:
-                break;
-        }
-    }
 }
