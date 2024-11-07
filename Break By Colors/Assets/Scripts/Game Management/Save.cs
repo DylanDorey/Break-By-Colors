@@ -91,9 +91,12 @@ public class Save : Singleton<Save>
 
         //set the high score object to the players high score
         save.highScore = PlayerData.Instance.highScore;
-        //save.highScore = 0;
         save.audioSetting = GameManager.Instance.audioSetting;
         save.tutorialSetting = GameManager.Instance.tutorialSetting;
+
+        save.highScore = 0;
+        save.audioSetting = true;
+        save.tutorialSetting = false;
 
         //return the save object
         return save;

@@ -105,7 +105,7 @@ public class GameManager : Singleton<GameManager>
     public void SetAudioSetting()
     {
         //if the audio setting is true/false set it to the opposite value
-        Debug.Log("Current: " + audioSetting);
+        Debug.Log("Aud Current: " + audioSetting);
 
         if(audioSetting)
         {
@@ -116,6 +116,26 @@ public class GameManager : Singleton<GameManager>
             audioSetting = true;
         }
 
-        Debug.Log("Changed To: " + audioSetting);
+        Debug.Log("Aud Changed To: " + audioSetting);
+    }
+
+    /// <summary>
+    /// Changes the tutorial toggle to true or false when toggled
+    /// </summary>
+    public void SetTutorialSetting()
+    {
+        //if the tutorial setting is true/false set it to the opposite value
+        Debug.Log("Tut Current: " + tutorialSetting);
+
+        if (tutorialSetting)
+        {
+            tutorialSetting = false;
+        }
+        else
+        {
+            tutorialSetting = true;
+        }
+
+        Debug.Log("Tut Changed To: " + tutorialSetting);
     }
 }
