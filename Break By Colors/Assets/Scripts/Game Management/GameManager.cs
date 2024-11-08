@@ -28,10 +28,21 @@ public class GameManager : Singleton<GameManager>
     public bool audioSetting = true;
     public bool tutorialSetting = false;
 
+    public AudioSource buttonAudioSource;
+    public AudioSource musicAudioSource;
+
+    public AudioClip buttonClickSound;
+    public AudioClip settingsButtonClickSound;
+
+    public AudioClip menuMusic;
+    public AudioClip gameplayMusic;
+
     private void Start()
     {
         //start the game in the main menu by publishing the menu game event
         GameEventBus.Publish(GameState.gameLaunch);
+
+        AudioManager.Instance.PlayAudio(musicAudioSource, menuMusic, true);
     }
 
     /// <summary>
@@ -50,6 +61,9 @@ public class GameManager : Singleton<GameManager>
     {
         //publish the startGame game event
         GameEventBus.Publish(GameState.startGame);
+
+        AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);
+        AudioManager.Instance.PlayAudio(musicAudioSource, gameplayMusic, true);
     }
 
     /// <summary>
@@ -59,6 +73,8 @@ public class GameManager : Singleton<GameManager>
     {
         //publish the pauseGame game event
         GameEventBus.Publish(GameState.pauseGame);
+
+        AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);
     }
 
     /// <summary>
@@ -68,6 +84,8 @@ public class GameManager : Singleton<GameManager>
     {
         //publish the pauseGame game event
         GameEventBus.Publish(GameState.resumeGame);
+
+        AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);
     }
 
     /// <summary>
@@ -77,6 +95,20 @@ public class GameManager : Singleton<GameManager>
     {
         //publish the mainMenu game event
         GameEventBus.Publish(GameState.returnToMenu);
+
+        AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);
+        AudioManager.Instance.PlayAudio(musicAudioSource, menuMusic, true);
+    }
+
+    /// <summary>
+    /// This will return the player to the menu
+    /// </summary>
+    public void ReturnToMenuFromSettings()
+    {
+        //publish the mainMenu game event
+        GameEventBus.Publish(GameState.returnToMenu);
+
+        AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);
     }
 
     /// <summary>
@@ -92,6 +124,9 @@ public class GameManager : Singleton<GameManager>
 
         //publish the mainMenu game event
         GameEventBus.Publish(GameState.returnToMenu);
+
+        AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);
+        AudioManager.Instance.PlayAudio(musicAudioSource, menuMusic, true);
     }
 
     /// <summary>
@@ -101,6 +136,8 @@ public class GameManager : Singleton<GameManager>
     {
         //publish the settingsMenu game event
         GameEventBus.Publish(GameState.settingsMenu);
+
+        AudioManager.Instance.PlayAudio(buttonAudioSource, settingsButtonClickSound, false);
     }
 
     /// <summary>
@@ -122,6 +159,8 @@ public class GameManager : Singleton<GameManager>
     public void OpenFeedbackForm()
     {
         //Application.OpenURL();
+
+        AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);
     }
 
     /// <summary>
@@ -140,6 +179,8 @@ public class GameManager : Singleton<GameManager>
         {
             audioSetting = true;
         }
+
+        AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);
 
         Debug.Log("Aud Changed To: " + audioSetting);
     }
@@ -160,6 +201,8 @@ public class GameManager : Singleton<GameManager>
         {
             tutorialSetting = true;
         }
+
+        AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);
 
         Debug.Log("Tut Changed To: " + tutorialSetting);
     }
