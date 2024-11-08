@@ -28,6 +28,7 @@ public class GameManager : Singleton<GameManager>
     public bool audioSetting = true;
     public bool tutorialSetting = false;
 
+
     public AudioSource buttonAudioSource;
     public AudioSource musicAudioSource;
 
@@ -174,10 +175,12 @@ public class GameManager : Singleton<GameManager>
         if(audioSetting)
         {
             audioSetting = false;
+            musicAudioSource.Stop();
         }
         else
         {
             audioSetting = true;
+            musicAudioSource.Play();
         }
 
         AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);

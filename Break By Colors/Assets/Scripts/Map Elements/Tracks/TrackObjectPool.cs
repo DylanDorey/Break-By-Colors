@@ -16,6 +16,7 @@ public class TrackObjectPool : MonoBehaviour
     private GameObject trackParent;
 
     public List<GameObject> trackPool;
+    public List<GameObject> tutorialTracks;
 
     private int wallSpawnChance;
 
@@ -24,7 +25,7 @@ public class TrackObjectPool : MonoBehaviour
         maxPoolSize = TrackSpawner.Instance.trackLength;
     }
 
-    public void PopulateTrackPool()
+    public void PopulateGameTrackPool()
     {
         //create new parent track pool game object
         trackParent = new GameObject("TrackObjectPool");
@@ -59,11 +60,11 @@ public class TrackObjectPool : MonoBehaviour
         }
     }
 
-    public void Spawn()
+    public void SpawnGameTrack()
     {
         if(trackParent == null)
         {
-            PopulateTrackPool();
+            PopulateGameTrackPool();
         }
 
         float spawnPoint = (TrackSpawner.Instance.trackSize * TrackSpawner.Instance.trackLength) - (TrackSpawner.Instance.trackSize);
@@ -78,7 +79,18 @@ public class TrackObjectPool : MonoBehaviour
             spawnPoint -= TrackSpawner.Instance.trackSize;
         }
     }
-    
+
+    public void SpawnTutorialTrack(int index)
+    {
+        foreach(GameObject tutTrack in tutorialTracks)
+        {
+            Instantiate(tutTrack, Vector3.zero, Quaternion.identity);
+            tutTrack.SetActive(false);
+        }
+
+        tutorialTracks[index].SetActive(true);
+    }
+
     public void ReturnToTrackPool()
     {
         foreach (GameObject track in trackPool)

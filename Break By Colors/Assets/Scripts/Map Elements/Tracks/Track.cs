@@ -37,7 +37,7 @@ public class Track : MonoBehaviour
     private void Move()
     {
         //if the track moves too far behind the player
-        if (transform.position.z < -localTrackSize)
+        if (transform.position.z < -localTrackSize - 10f)
         {
             //go back to the start of the track length
             OnTrackReset();

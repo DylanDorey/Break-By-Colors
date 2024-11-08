@@ -13,6 +13,9 @@ public class Wall : MonoBehaviour
     [SerializeField]
     private int scoreValue;
 
+    private AudioClip[] wallBreakSounds;
+    private AudioSource wallAudioSource;
+
     private readonly Color[] wallColors = new Color[4] { Color.red * 20f, Color.blue * 20f, Color.cyan * 20f, Color.yellow * 20f };
     public Material[] wallMaterials;
     public Color thisWallColor;
@@ -27,6 +30,9 @@ public class Wall : MonoBehaviour
         wallRenderer = transform.GetChild(0).GetComponent<Renderer>();
         wallRenderer.sharedMaterial = wallMaterials[Random.Range(0, 4)];
         thisWallColor = InitializeCurrentColor();
+        wallBreakSounds = AudioManager.Instance.wallBreakSounds;
+        wallAudioSource = AudioManager.Instance.wallAudioSource;
+
 
         //thisMaterial.color = wallColors[Random.Range(0, wallColors.Length)];
     }
@@ -41,13 +47,14 @@ public class Wall : MonoBehaviour
             {
                 player.SetNewTargetColor(wallColors[Random.Range(0, wallColors.Length)]);
                 player.AddCurrentScore(scoreValue);
+                AudioManager.Instance.PlayAudio(wallAudioSource, wallBreakSounds[Random.Range(0, wallBreakSounds.Length)], false);
                 TrackEventBus.Publish(TrackEvent.changeSpeed);
             }
             else
             {
                 //Set the game to game over
-                //player.gameObject.GetComponent<PlayerController>().ResetPlayerPosition();
                 GameEventBus.Publish(GameState.gameOver);
+                //AudioManager.Instance.PlayAudio(wallAudioSource, wallBreakSounds[3], false);
             }
         }
     }

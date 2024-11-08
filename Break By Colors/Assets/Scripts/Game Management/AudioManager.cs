@@ -10,6 +10,14 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
+    public AudioClip[] wallBreakSounds;
+
+    public AudioSource wallAudioSource;
+
+    public AudioClip gapSound;
+
+    public AudioSource gapAudioSource;
+
     /// <summary>
     /// Plays the audio of any game object passed to it if the game audio is on
     /// </summary>

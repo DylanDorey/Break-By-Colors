@@ -35,9 +35,13 @@ public class TrackSpawner : Singleton<TrackSpawner>
     {
         TrackEventBus.Subscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
 
-        GameEventBus.Subscribe(GameState.gameLaunch, StartSpawning);
+        GameEventBus.Subscribe(GameState.gameLaunch, LaunchSpawn);
+
         GameEventBus.Subscribe(GameState.returnToMenu, StartSpawning);
+
+        GameEventBus.Unsubscribe(GameState.startGame, StartSpawning);
         GameEventBus.Subscribe(GameState.startGame, StartMoving);
+
         GameEventBus.Subscribe(GameState.gameOver, StopMoving);
         GameEventBus.Subscribe(GameState.gameOver, ResetTrack);
     }
@@ -46,27 +50,39 @@ public class TrackSpawner : Singleton<TrackSpawner>
     {
         TrackEventBus.Unsubscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
 
-        GameEventBus.Unsubscribe(GameState.gameLaunch, StartSpawning);
+        GameEventBus.Unsubscribe(GameState.gameLaunch, LaunchSpawn);
+
         GameEventBus.Unsubscribe(GameState.returnToMenu, StartSpawning);
+
+        GameEventBus.Unsubscribe(GameState.startGame, StartSpawning);
         GameEventBus.Unsubscribe(GameState.startGame, StartMoving);
+
         GameEventBus.Unsubscribe(GameState.gameOver, StopMoving);
         GameEventBus.Unsubscribe(GameState.gameOver, ResetTrack);
     }
 
     private void StartSpawning()
     {
-        //initialize the track object pool
-        if (gameObject.GetComponent<TrackObjectPool>())
-        {
-            pool = gameObject.GetComponent<TrackObjectPool>();
-            pool.Spawn();
-        }
-        else
-        {
-            Debug.LogError("ERROR: No track object pool found!");
-        }
+        //if(GameManager.Instance.tutorialSetting)
+        //{
+        //    ResetTrack();
+        //    pool = gameObject.GetComponent<TrackObjectPool>();
+        //    pool.SpawnTutorialTrack(0);
+        //}
+
+        pool = gameObject.GetComponent<TrackObjectPool>();
+        pool.SpawnGameTrack();
     }
 
+    private void LaunchSpawn()
+    {
+        pool = gameObject.GetComponent<TrackObjectPool>();
+        pool.SpawnGameTrack();
+    }
+
+    /// <summary>
+    /// Destroys the track pool and resets it
+    /// </summary>
     private void ResetTrack()
     {
         pool.DestroyTrackPool();
@@ -74,7 +90,7 @@ public class TrackSpawner : Singleton<TrackSpawner>
 
     public void StartMoving()
     {
-        moving = true;
+        StartCoroutine(MoveDelay());
     }
 
     public void StopMoving()
@@ -97,5 +113,12 @@ public class TrackSpawner : Singleton<TrackSpawner>
                 track.SetSpeed(track.GetSpeed() + speedAccelerationMultiplier);
             }
         }
+    }
+
+    private IEnumerator MoveDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        moving = true;
     }
 }

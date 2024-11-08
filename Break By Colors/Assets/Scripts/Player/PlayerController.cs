@@ -75,6 +75,11 @@ public class PlayerController : Singleton<PlayerController>
         //move in the direction of the current x and y movement values * players speed
         transform.position = Vector3.Lerp(transform.position, targetPos, movementDampaner);
 
+        if (Mathf.Approximately(transform.position.x, 0f))
+        {
+            transform.position = Vector3.zero;
+        }
+
         CheckIfGrounded();
         BallRotate();
     }
@@ -277,7 +282,7 @@ public class PlayerController : Singleton<PlayerController>
     /// </summary>
     private void BallRotate()
     {
-        playerModelTransform.Rotate(TrackSpawner.Instance.pool.trackPool[0].gameObject.GetComponent<Track>().GetSpeed() / 20f, .7f, .5f);
+        playerModelTransform.Rotate(1f, .7f, .5f);
     }
 
     /// <summary>
