@@ -588,7 +588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &296529492
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3320,6 +3320,7 @@ MonoBehaviour:
   maxTrackSpeed: 50
   speedAccelerationMultiplier: 1.5
   moving: 0
+  inTutorial: 0
   pool: {fileID: 0}
 --- !u!114 &992862522
 MonoBehaviour:
@@ -3336,10 +3337,11 @@ MonoBehaviour:
   maxPoolSize: 0
   track50Prefab: {fileID: 2715702848744774503, guid: dcc58bf105fd4e348b55febd008eae3d,
     type: 3}
-  trackPool: []
-  tutorialTracks:
+  tutorialTrackPrefabs:
   - {fileID: 7132257356282267815, guid: b1c3a3cc26450e4479d71a8d0af64633, type: 3}
   - {fileID: 8029167080220426459, guid: 8ef218fd179ab0540975d933b58a119d, type: 3}
+  trackPool: []
+  tutorialTracks: []
 --- !u!1 &1008148463
 GameObject:
   m_ObjectHideFlags: 0
@@ -3766,7 +3768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49188136ae94f324491cdbf11ea7f9fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highScore: 0
 --- !u!82 &1031250727
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5112,7 +5113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1305703391
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5441,7 +5442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1508251386
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7192,6 +7193,8 @@ MonoBehaviour:
   targetColor: {fileID: 406598493}
   score: {fileID: 891595469}
   highScore: {fileID: 14631327}
+  tutorialToggle: {fileID: 414723148}
+  audioToggle: {fileID: 452295716}
 --- !u!1001 &2004268643
 PrefabInstance:
   m_ObjectHideFlags: 0

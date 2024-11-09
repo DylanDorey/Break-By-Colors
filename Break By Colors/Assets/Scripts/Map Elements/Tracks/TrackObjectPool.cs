@@ -14,6 +14,8 @@ public class TrackObjectPool : MonoBehaviour
     public int maxPoolSize;
     public GameObject track50Prefab;
     private GameObject trackParent;
+    private GameObject tutorialTrackParent;
+    public GameObject[] tutorialTrackPrefabs;
 
     public List<GameObject> trackPool;
     public List<GameObject> tutorialTracks;
@@ -80,15 +82,27 @@ public class TrackObjectPool : MonoBehaviour
         }
     }
 
-    public void SpawnTutorialTrack(int index)
+    public void SpawnTutorialTrack()
     {
-        foreach(GameObject tutTrack in tutorialTracks)
+        //create new parent tutorial track pool game object
+        tutorialTrackParent = new GameObject("TutorialTrackParent");
+
+        for (int index = 0; index < tutorialTrackPrefabs.Length; index++)
         {
-            Instantiate(tutTrack, Vector3.zero, Quaternion.identity);
-            tutTrack.SetActive(false);
+            GameObject track = Instantiate(tutorialTrackPrefabs[index], Vector3.zero, Quaternion.identity);
+            tutorialTracks.Add(track);
+            track.transform.parent = tutorialTrackParent.transform;
+            track.SetActive(false);
         }
 
-        tutorialTracks[index].SetActive(true);
+        tutorialTracks[0].SetActive(true);
+    }
+
+    public void SpawnNextTutorialTrack(int index)
+    {
+        tutorialTracks[(index - 1)].gameObject.SetActive(false);
+
+        tutorialTracks[index].gameObject.SetActive(true);
     }
 
     public void ReturnToTrackPool()
@@ -106,7 +120,12 @@ public class TrackObjectPool : MonoBehaviour
         Destroy(trackParent);
 
         trackParent = null;
+    }
 
-        GameEventBus.Publish(GameState.returnToMenu);
+    public void DestroyTutorialTrack()
+    {
+        tutorialTracks.Clear();
+
+        Destroy(tutorialTrackParent);
     }
 }

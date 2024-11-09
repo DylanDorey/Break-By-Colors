@@ -11,7 +11,7 @@ using UnityEngine;
 public class Track : MonoBehaviour
 {
     //speed of the track
-    private float speed;
+    public float speed;
     private int localTrackSize;
 
     public Transform[] wallSpawnPoints;

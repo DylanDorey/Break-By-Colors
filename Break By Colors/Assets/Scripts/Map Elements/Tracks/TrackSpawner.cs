@@ -27,6 +27,7 @@ public class TrackSpawner : Singleton<TrackSpawner>
     private float speedAccelerationMultiplier;
 
     public bool moving = false;
+    public bool inTutorial;
 
     //reference to the drone object pool
     public TrackObjectPool pool;
@@ -35,11 +36,11 @@ public class TrackSpawner : Singleton<TrackSpawner>
     {
         TrackEventBus.Subscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
 
-        GameEventBus.Subscribe(GameState.gameLaunch, LaunchSpawn);
+        GameEventBus.Subscribe(GameState.gameLaunch, LaunchSpawnTrack);
 
-        GameEventBus.Subscribe(GameState.returnToMenu, StartSpawning);
+        GameEventBus.Subscribe(GameState.returnToMenu, SpawnTrack);
 
-        GameEventBus.Unsubscribe(GameState.startGame, StartSpawning);
+        GameEventBus.Subscribe(GameState.startGame, SpawnTrack);
         GameEventBus.Subscribe(GameState.startGame, StartMoving);
 
         GameEventBus.Subscribe(GameState.gameOver, StopMoving);
@@ -50,34 +51,47 @@ public class TrackSpawner : Singleton<TrackSpawner>
     {
         TrackEventBus.Unsubscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
 
-        GameEventBus.Unsubscribe(GameState.gameLaunch, LaunchSpawn);
+        GameEventBus.Unsubscribe(GameState.gameLaunch, LaunchSpawnTrack);
 
-        GameEventBus.Unsubscribe(GameState.returnToMenu, StartSpawning);
+        GameEventBus.Unsubscribe(GameState.returnToMenu, SpawnTrack);
 
-        GameEventBus.Unsubscribe(GameState.startGame, StartSpawning);
+        GameEventBus.Unsubscribe(GameState.startGame, SpawnTrack);
         GameEventBus.Unsubscribe(GameState.startGame, StartMoving);
 
         GameEventBus.Unsubscribe(GameState.gameOver, StopMoving);
         GameEventBus.Unsubscribe(GameState.gameOver, ResetTrack);
     }
 
-    private void StartSpawning()
+    public void SpawnTrack()
     {
-        //if(GameManager.Instance.tutorialSetting)
-        //{
-        //    ResetTrack();
-        //    pool = gameObject.GetComponent<TrackObjectPool>();
-        //    pool.SpawnTutorialTrack(0);
-        //}
-
-        pool = gameObject.GetComponent<TrackObjectPool>();
-        pool.SpawnGameTrack();
+        if (!GameManager.Instance.tutorialSetting)
+        {
+            pool.DestroyTutorialTrack();
+            pool.SpawnTutorialTrack();
+            pool.DestroyTrackPool();
+            inTutorial = true;
+        }
+        else
+        {
+            LaunchSpawnTrack();
+            pool.DestroyTutorialTrack();
+        }
     }
 
-    private void LaunchSpawn()
+    private void LaunchSpawnTrack()
     {
-        pool = gameObject.GetComponent<TrackObjectPool>();
-        pool.SpawnGameTrack();
+        if (!GameManager.Instance.tutorialSetting)
+        {
+            pool = gameObject.GetComponent<TrackObjectPool>();
+            pool.SpawnTutorialTrack();
+            inTutorial = true;
+        }
+        else
+        {
+            pool = gameObject.GetComponent<TrackObjectPool>();
+            pool.SpawnGameTrack();
+            inTutorial = false;
+        }
     }
 
     /// <summary>
@@ -85,7 +99,16 @@ public class TrackSpawner : Singleton<TrackSpawner>
     /// </summary>
     private void ResetTrack()
     {
-        pool.DestroyTrackPool();
+        if(!inTutorial)
+        {
+            pool.DestroyTrackPool();
+        }
+        else
+        {
+            pool.DestroyTutorialTrack();
+        }
+
+        LaunchSpawnTrack();
     }
 
     public void StartMoving()

@@ -155,7 +155,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.ColorSmashStudios.BreakByColors
-    Standalone: com.Unity-Technologies.com.unity.template.urp-blank
+    Standalone: com.Color-Smash-Studios.Break-By-Colors
     iPhone: com.Unity-Technologies.com.unity.template.urp-blank
   buildNumber:
     Standalone: 0

@@ -13,19 +13,15 @@ using UnityEngine.UI;
 
 public class Save : Singleton<Save>
 {
-    public int highScore;
-    //public bool audioSetting;
-    //public bool tutorialSetting;
-
     private void OnEnable()
     {
-        GameEventBus.Subscribe(GameState.gameLaunch, LoadSave);
+        GameEventBus.Subscribe(GameState.loadGame, LoadSave);
         GameEventBus.Subscribe(GameState.returnToMenu, SaveGame);
     }
 
     private void OnDisable()
     {
-        GameEventBus.Unsubscribe(GameState.gameLaunch, LoadSave);
+        GameEventBus.Unsubscribe(GameState.loadGame, LoadSave);
         GameEventBus.Unsubscribe(GameState.returnToMenu, SaveGame);
     }
 
@@ -44,9 +40,6 @@ public class Save : Singleton<Save>
         //serialize the data into bytes and write it to the disk and close the filestream
         bf.Serialize(file, save);
         file.Close();
-
-        //Reset the highScore after save
-        highScore = 0;
 
         Debug.Log("Game Saved");
     }
@@ -70,6 +63,9 @@ public class Save : Singleton<Save>
             PlayerData.Instance.highScore = save.highScore;
             GameManager.Instance.audioSetting = save.audioSetting;
             GameManager.Instance.tutorialSetting = save.tutorialSetting;
+            UIManager.Instance.audioToggle.isOn = save.audioSetting;
+            UIManager.Instance.tutorialToggle.isOn = save.tutorialSetting;
+
 
             Debug.Log("Game Loaded");
         }
@@ -77,6 +73,8 @@ public class Save : Singleton<Save>
         {
             Debug.Log("No Game Saved");
         }
+
+        GameEventBus.Publish(GameState.gameLaunch);
     }
 
 

@@ -364,7 +364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7379427445449716848}
   - component: {fileID: 6564064111476945233}
-  - component: {fileID: 3369008225631764861}
+  - component: {fileID: 6945034496426462574}
   m_Layer: 0
   m_Name: AsteroidWall (4)
   m_TagString: Untagged
@@ -409,7 +409,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8, y: 1.8, z: 0.5}
   m_Center: {x: 0, y: 1, z: -0.1}
---- !u!114 &3369008225631764861
+--- !u!114 &6945034496426462574
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -418,9 +418,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1811916212480074264}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdce895c9b7eda41934ec5a7c73d648, type: 3}
+  m_Script: {fileID: 11500000, guid: 58e33dbf39fd93a41b1a2477144ec4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  willMatch: 0
+  track: {fileID: 7132257356282267815}
   scoreValue: 0
   wallMaterials:
   - {fileID: 2100000, guid: f21b4c93d62a42940964bd18698d2327, type: 2}
@@ -437,7 +439,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6466403332663931103}
-  - component: {fileID: 8487268177587429652}
   m_Layer: 0
   m_Name: Track50 (1)
   m_TagString: Untagged
@@ -454,12 +455,11 @@ Transform:
   m_GameObject: {fileID: 2039856625872751343}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 50}
+  m_LocalPosition: {x: 0, y: -0.5, z: 50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1737362154307850362}
-  - {fileID: 3635712862560851737}
   - {fileID: 410851600038860330}
   - {fileID: 1903393495830201313}
   - {fileID: 5488699806946839489}
@@ -467,32 +467,6 @@ Transform:
   - {fileID: 7379427445449716848}
   m_Father: {fileID: 7963117875769237154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8487268177587429652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2039856625872751343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbb55aaaeb6e35c46b0bc65817680cd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallSpawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  walls: []
-  wallPrefab: {fileID: 5116268712622302893, guid: 807c52030e89a474aba27c282e41ef41,
-    type: 3}
-  gapCollider: {fileID: 8095244701227623907, guid: 0c2ff5029009eb1419597306d6bb85f9,
-    type: 3}
-  nextTrack: {fileID: 0}
-  wallSpawnChance: 0
 --- !u!1 &2127002261742148309
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,7 +477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6357280324218721826}
   - component: {fileID: 9085283645258548531}
-  - component: {fileID: 8333373102132698367}
+  - component: {fileID: 1179564255171580890}
   m_Layer: 0
   m_Name: AsteroidWall (4)
   m_TagString: Untagged
@@ -548,7 +522,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8, y: 1.8, z: 0.5}
   m_Center: {x: 0, y: 1, z: -0.1}
---- !u!114 &8333373102132698367
+--- !u!114 &1179564255171580890
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -557,9 +531,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2127002261742148309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdce895c9b7eda41934ec5a7c73d648, type: 3}
+  m_Script: {fileID: 11500000, guid: 58e33dbf39fd93a41b1a2477144ec4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  willMatch: 0
+  track: {fileID: 7132257356282267815}
   scoreValue: 0
   wallMaterials:
   - {fileID: 2100000, guid: f21b4c93d62a42940964bd18698d2327, type: 2}
@@ -577,7 +553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 410851600038860330}
   - component: {fileID: 5323704484450063400}
-  - component: {fileID: 2629285899753278971}
+  - component: {fileID: 4020316907411037329}
   m_Layer: 0
   m_Name: AsteroidWall
   m_TagString: Untagged
@@ -594,7 +570,7 @@ Transform:
   m_GameObject: {fileID: 2163289389952464013}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 0.2, z: 49.5}
+  m_LocalPosition: {x: 0, y: 0.2, z: 49.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -622,7 +598,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8, y: 1.8, z: 0.5}
   m_Center: {x: 0, y: 1, z: -0.1}
---- !u!114 &2629285899753278971
+--- !u!114 &4020316907411037329
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -631,9 +607,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2163289389952464013}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdce895c9b7eda41934ec5a7c73d648, type: 3}
+  m_Script: {fileID: 11500000, guid: 58e33dbf39fd93a41b1a2477144ec4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  willMatch: 0
+  track: {fileID: 7132257356282267815}
   scoreValue: 0
   wallMaterials:
   - {fileID: 2100000, guid: f21b4c93d62a42940964bd18698d2327, type: 2}
@@ -651,7 +629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5488699806946839489}
   - component: {fileID: 1166947059683705371}
-  - component: {fileID: 1594473401494370394}
+  - component: {fileID: 8594540334875043147}
   m_Layer: 0
   m_Name: AsteroidWall (2)
   m_TagString: Untagged
@@ -696,7 +674,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8, y: 1.8, z: 0.5}
   m_Center: {x: 0, y: 1, z: -0.1}
---- !u!114 &1594473401494370394
+--- !u!114 &8594540334875043147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -705,9 +683,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2372807907551914805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdce895c9b7eda41934ec5a7c73d648, type: 3}
+  m_Script: {fileID: 11500000, guid: 58e33dbf39fd93a41b1a2477144ec4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  willMatch: 0
+  track: {fileID: 7132257356282267815}
   scoreValue: 0
   wallMaterials:
   - {fileID: 2100000, guid: f21b4c93d62a42940964bd18698d2327, type: 2}
@@ -742,7 +722,7 @@ Transform:
   m_GameObject: {fileID: 2796833469884769374}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -3, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -807,7 +787,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2150771666530979642}
-  - component: {fileID: 7662179329091167291}
   m_Layer: 0
   m_Name: Track50 (2)
   m_TagString: Untagged
@@ -824,7 +803,7 @@ Transform:
   m_GameObject: {fileID: 3145550649933773594}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalPosition: {x: 0, y: -0.5, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -833,32 +812,6 @@ Transform:
   - {fileID: 8658364435949172649}
   m_Father: {fileID: 7963117875769237154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7662179329091167291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3145550649933773594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbb55aaaeb6e35c46b0bc65817680cd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallSpawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  walls: []
-  wallPrefab: {fileID: 5116268712622302893, guid: 807c52030e89a474aba27c282e41ef41,
-    type: 3}
-  gapCollider: {fileID: 8095244701227623907, guid: 0c2ff5029009eb1419597306d6bb85f9,
-    type: 3}
-  nextTrack: {fileID: 0}
-  wallSpawnChance: 0
 --- !u!1 &3370612568017349816
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,7 +926,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4752951680621218317}
-  - component: {fileID: 1346170906691537349}
   m_Layer: 0
   m_Name: Track50
   m_TagString: Untagged
@@ -990,12 +942,11 @@ Transform:
   m_GameObject: {fileID: 3852029256781562890}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1914992031120611117}
-  - {fileID: 622188243958832121}
   - {fileID: 5973525002556192801}
   - {fileID: 2448767932086545440}
   - {fileID: 8810107261737814410}
@@ -1003,32 +954,6 @@ Transform:
   - {fileID: 6357280324218721826}
   m_Father: {fileID: 7963117875769237154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1346170906691537349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3852029256781562890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbb55aaaeb6e35c46b0bc65817680cd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallSpawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  walls: []
-  wallPrefab: {fileID: 5116268712622302893, guid: 807c52030e89a474aba27c282e41ef41,
-    type: 3}
-  gapCollider: {fileID: 8095244701227623907, guid: 0c2ff5029009eb1419597306d6bb85f9,
-    type: 3}
-  nextTrack: {fileID: 0}
-  wallSpawnChance: 0
 --- !u!1 &3940197075636524253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,7 +964,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6133231924153075464}
   - component: {fileID: 5869269341907377233}
-  - component: {fileID: 2211592133158220042}
+  - component: {fileID: 1157009163369037117}
   m_Layer: 0
   m_Name: AsteroidWall (3)
   m_TagString: Untagged
@@ -1084,7 +1009,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8, y: 1.8, z: 0.5}
   m_Center: {x: 0, y: 1, z: -0.1}
---- !u!114 &2211592133158220042
+--- !u!114 &1157009163369037117
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1093,9 +1018,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3940197075636524253}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdce895c9b7eda41934ec5a7c73d648, type: 3}
+  m_Script: {fileID: 11500000, guid: 58e33dbf39fd93a41b1a2477144ec4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  willMatch: 0
+  track: {fileID: 7132257356282267815}
   scoreValue: 0
   wallMaterials:
   - {fileID: 2100000, guid: f21b4c93d62a42940964bd18698d2327, type: 2}
@@ -1269,37 +1196,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4501868846743223934
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3635712862560851737}
-  m_Layer: 0
-  m_Name: SpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3635712862560851737
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4501868846743223934}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 50}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6466403332663931103}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4812504159257452350
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,7 +1342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5973525002556192801}
   - component: {fileID: 5715226275177356578}
-  - component: {fileID: 2676114723940555548}
+  - component: {fileID: 1146376257302230871}
   m_Layer: 0
   m_Name: AsteroidWall
   m_TagString: Untagged
@@ -1491,7 +1387,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8, y: 1.8, z: 0.5}
   m_Center: {x: 0, y: 1, z: -0.1}
---- !u!114 &2676114723940555548
+--- !u!114 &1146376257302230871
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1500,9 +1396,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4883807042931263917}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdce895c9b7eda41934ec5a7c73d648, type: 3}
+  m_Script: {fileID: 11500000, guid: 58e33dbf39fd93a41b1a2477144ec4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  willMatch: 0
+  track: {fileID: 7132257356282267815}
   scoreValue: 0
   wallMaterials:
   - {fileID: 2100000, guid: f21b4c93d62a42940964bd18698d2327, type: 2}
@@ -1641,7 +1539,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1660,37 +1558,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextTrackIndex: 1
---- !u!1 &6068881273994627477
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 622188243958832121}
-  m_Layer: 0
-  m_Name: SpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &622188243958832121
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6068881273994627477}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 50}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4752951680621218317}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7003149087962167860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,14 +1650,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7963117875769237154}
-  - component: {fileID: 8851651703808071399}
+  - component: {fileID: 3482592952943721533}
   m_Layer: 0
   m_Name: LeftRightTrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7963117875769237154
 Transform:
   m_ObjectHideFlags: 0
@@ -1809,7 +1676,7 @@ Transform:
   - {fileID: 2150771666530979642}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8851651703808071399
+--- !u!114 &3482592952943721533
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1818,15 +1685,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7132257356282267815}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbb55aaaeb6e35c46b0bc65817680cd6, type: 3}
+  m_Script: {fileID: 11500000, guid: 10f09969cf623ad43a47cf8a9765bf71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallSpawnPoints: []
-  walls: []
-  wallPrefab: {fileID: 0}
-  gapCollider: {fileID: 0}
-  nextTrack: {fileID: 0}
-  wallSpawnChance: 0
 --- !u!1 &7500819232083323063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,7 +1698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8810107261737814410}
   - component: {fileID: 4814432969188093626}
-  - component: {fileID: 8001325334665382413}
+  - component: {fileID: 3603205238650551114}
   m_Layer: 0
   m_Name: AsteroidWall (2)
   m_TagString: Untagged
@@ -1882,7 +1743,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8, y: 1.8, z: 0.5}
   m_Center: {x: 0, y: 1, z: -0.1}
---- !u!114 &8001325334665382413
+--- !u!114 &3603205238650551114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1891,9 +1752,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7500819232083323063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdce895c9b7eda41934ec5a7c73d648, type: 3}
+  m_Script: {fileID: 11500000, guid: 58e33dbf39fd93a41b1a2477144ec4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  willMatch: 0
+  track: {fileID: 7132257356282267815}
   scoreValue: 0
   wallMaterials:
   - {fileID: 2100000, guid: f21b4c93d62a42940964bd18698d2327, type: 2}
@@ -1994,7 +1857,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2448767932086545440}
   - component: {fileID: 621433164794766333}
-  - component: {fileID: 4616903212355514060}
+  - component: {fileID: 8679045997803508111}
   m_Layer: 0
   m_Name: AsteroidWall (1)
   m_TagString: Untagged
@@ -2039,7 +1902,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8, y: 1.8, z: 0.5}
   m_Center: {x: 0, y: 1, z: -0.1}
---- !u!114 &4616903212355514060
+--- !u!114 &8679045997803508111
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2048,9 +1911,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7729671370104918324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdce895c9b7eda41934ec5a7c73d648, type: 3}
+  m_Script: {fileID: 11500000, guid: 58e33dbf39fd93a41b1a2477144ec4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  willMatch: 0
+  track: {fileID: 7132257356282267815}
   scoreValue: 0
   wallMaterials:
   - {fileID: 2100000, guid: f21b4c93d62a42940964bd18698d2327, type: 2}
@@ -2068,7 +1933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5036972868076466171}
   - component: {fileID: 2583417799995118394}
-  - component: {fileID: 4743467436470310134}
+  - component: {fileID: 530971908295121838}
   m_Layer: 0
   m_Name: AsteroidWall (3)
   m_TagString: Untagged
@@ -2113,7 +1978,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8, y: 1.8, z: 0.5}
   m_Center: {x: 0, y: 1, z: -0.1}
---- !u!114 &4743467436470310134
+--- !u!114 &530971908295121838
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2122,9 +1987,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7856492781960378388}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdce895c9b7eda41934ec5a7c73d648, type: 3}
+  m_Script: {fileID: 11500000, guid: 58e33dbf39fd93a41b1a2477144ec4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  willMatch: 0
+  track: {fileID: 7132257356282267815}
   scoreValue: 0
   wallMaterials:
   - {fileID: 2100000, guid: f21b4c93d62a42940964bd18698d2327, type: 2}
@@ -2225,7 +2092,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1903393495830201313}
   - component: {fileID: 4328548704158154004}
-  - component: {fileID: 3152923279612662038}
+  - component: {fileID: 6609904441462493055}
   m_Layer: 0
   m_Name: AsteroidWall (1)
   m_TagString: Untagged
@@ -2270,7 +2137,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8, y: 1.8, z: 0.5}
   m_Center: {x: 0, y: 1, z: -0.1}
---- !u!114 &3152923279612662038
+--- !u!114 &6609904441462493055
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2279,9 +2146,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9101775373089890036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdce895c9b7eda41934ec5a7c73d648, type: 3}
+  m_Script: {fileID: 11500000, guid: 58e33dbf39fd93a41b1a2477144ec4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  willMatch: 0
+  track: {fileID: 7132257356282267815}
   scoreValue: 0
   wallMaterials:
   - {fileID: 2100000, guid: f21b4c93d62a42940964bd18698d2327, type: 2}

@@ -11,9 +11,9 @@ using UnityEngine;
 //the various game states
 public enum GameState
 {
+    loadGame,
     gameLaunch,
     settingsMenu,
-    initializeGame,
     startGame,
     pauseGame,
     resumeGame,
@@ -25,9 +25,8 @@ public class GameManager : Singleton<GameManager>
 {
     public bool paused = false;
 
-    public bool audioSetting = true;
-    public bool tutorialSetting = false;
-
+    public bool audioSetting;
+    public bool tutorialSetting;
 
     public AudioSource buttonAudioSource;
     public AudioSource musicAudioSource;
@@ -41,18 +40,9 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         //start the game in the main menu by publishing the menu game event
-        GameEventBus.Publish(GameState.gameLaunch);
+        GameEventBus.Publish(GameState.loadGame);
 
         AudioManager.Instance.PlayAudio(musicAudioSource, menuMusic, true);
-    }
-
-    /// <summary>
-    /// Initializes all game specific values
-    /// </summary>
-    public void InitializeGame()
-    {
-        //publish the initializeGame game event
-        GameEventBus.Publish(GameState.initializeGame);
     }
 
     /// <summary>
@@ -122,9 +112,6 @@ public class GameManager : Singleton<GameManager>
 
         //publish the pauseGame game event
         GameEventBus.Publish(GameState.gameOver);
-
-        //publish the mainMenu game event
-        GameEventBus.Publish(GameState.returnToMenu);
 
         AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);
         AudioManager.Instance.PlayAudio(musicAudioSource, menuMusic, true);

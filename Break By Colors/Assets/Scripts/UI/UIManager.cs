@@ -18,6 +18,9 @@ public class UIManager : Singleton<UIManager>
     public TextMeshProUGUI score;
     public TextMeshProUGUI highScore;
 
+    public Toggle tutorialToggle;
+    public Toggle audioToggle;
+
 
     private void OnEnable()
     {
