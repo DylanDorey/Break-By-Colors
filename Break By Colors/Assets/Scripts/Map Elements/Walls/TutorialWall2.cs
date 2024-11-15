@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialWall : MonoBehaviour
+public class TutorialWall2 : MonoBehaviour
 {
     public bool willMatch;
     public GameObject track;
@@ -23,9 +23,9 @@ public class TutorialWall : MonoBehaviour
     {
         wallRenderer = transform.GetChild(0).GetComponent<Renderer>();
 
-        wallRenderer.sharedMaterial = wallMaterials[1];
+        wallRenderer.sharedMaterial = wallMaterials[0];
 
-        thisWallColor = Color.blue * 20f;
+        thisWallColor = Color.red * 20f;
 
         wallBreakSounds = AudioManager.Instance.wallBreakSounds;
         wallAudioSource = AudioManager.Instance.wallAudioSource;
@@ -41,21 +41,21 @@ public class TutorialWall : MonoBehaviour
             {
                 if (player.GetTargetColor() == thisWallColor)
                 {
-                    player.SetNewTargetColor(Color.red * 20f);
+                    player.SetNewTargetColor(thisWallColor);
                     player.AddCurrentScore(scoreValue);
                     AudioManager.Instance.PlayAudio(wallAudioSource, wallBreakSounds[Random.Range(0, wallBreakSounds.Length)], false);
                 }
                 else
                 {
                     PlayerController.Instance.ResetPlayerPosition();
-                    track.transform.position += new Vector3(0f, 0f, 50f);
+                    track.transform.position += new Vector3(0f, 0f, 45f);
                     //transform.parent.transform.parent.transform.position = Vector3.zero;
                 }
             }
             else
             {
                 PlayerController.Instance.transform.position = Vector3.zero;
-                track.transform.position += new Vector3(0f, 0f, 50f);
+                track.transform.position += new Vector3(0f, 0f, 45f);
             }
         }
     }

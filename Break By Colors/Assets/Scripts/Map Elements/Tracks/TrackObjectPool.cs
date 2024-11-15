@@ -15,10 +15,9 @@ public class TrackObjectPool : MonoBehaviour
     public GameObject track50Prefab;
     private GameObject trackParent;
     private GameObject tutorialTrackParent;
-    public GameObject[] tutorialTrackPrefabs;
+    public GameObject tutorialTrackPrefab;
 
     public List<GameObject> trackPool;
-    public List<GameObject> tutorialTracks;
 
     private int wallSpawnChance;
 
@@ -42,7 +41,7 @@ public class TrackObjectPool : MonoBehaviour
         wallSpawnChance = TrackSpawner.Instance.wallSpawnChance;
 
         for (int index = 0; index < maxPoolSize; index++)
-        { 
+        {   
             GameObject track = Instantiate(track50Prefab, Vector3.zero, Quaternion.identity);
             trackPool.Add(track);
 
@@ -87,22 +86,8 @@ public class TrackObjectPool : MonoBehaviour
         //create new parent tutorial track pool game object
         tutorialTrackParent = new GameObject("TutorialTrackParent");
 
-        for (int index = 0; index < tutorialTrackPrefabs.Length; index++)
-        {
-            GameObject track = Instantiate(tutorialTrackPrefabs[index], Vector3.zero, Quaternion.identity);
-            tutorialTracks.Add(track);
-            track.transform.parent = tutorialTrackParent.transform;
-            track.SetActive(false);
-        }
-
-        tutorialTracks[0].SetActive(true);
-    }
-
-    public void SpawnNextTutorialTrack(int index)
-    {
-        tutorialTracks[(index - 1)].gameObject.SetActive(false);
-
-        tutorialTracks[index].gameObject.SetActive(true);
+        GameObject track = Instantiate(tutorialTrackPrefab, Vector3.zero, Quaternion.identity);
+        track.transform.parent = tutorialTrackParent.transform;
     }
 
     public void ReturnToTrackPool()
@@ -124,8 +109,6 @@ public class TrackObjectPool : MonoBehaviour
 
     public void DestroyTutorialTrack()
     {
-        tutorialTracks.Clear();
-
         Destroy(tutorialTrackParent);
     }
 }

@@ -22,11 +22,13 @@ public class PlayerData : Singleton<PlayerData>
     private void OnEnable()
     {
         GameEventBus.Subscribe(GameState.gameOver, CreateNewHighScore);
+        GameEventBus.Subscribe(GameState.startGame, InitializeTargetColor);
     }
 
     private void OnDisable()
     {
         GameEventBus.Unsubscribe(GameState.gameOver, CreateNewHighScore);
+        GameEventBus.Unsubscribe(GameState.startGame, InitializeTargetColor);
     }
 
     private void Start()
@@ -48,10 +50,21 @@ public class PlayerData : Singleton<PlayerData>
         playerMat.EnableKeyword("_EMISSION");
 
         //color data
-        targetColor = wallColors[Random.Range(0, wallColors.Length)];
-        //playerColor = targetColor;
+        InitializeTargetColor();
+    }
 
-        playerMat.SetColor("_EmissionColor", targetColor);
+    public void InitializeTargetColor()
+    {
+        if (GameManager.Instance.tutorialSetting)
+        {
+            targetColor = wallColors[1];
+            playerMat.SetColor("_EmissionColor", targetColor);
+        }
+        else
+        {
+            targetColor = wallColors[Random.Range(0, wallColors.Length)];
+            playerMat.SetColor("_EmissionColor", targetColor);
+        }
     }
 
     /// <summary>

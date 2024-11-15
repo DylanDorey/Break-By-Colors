@@ -118,6 +118,8 @@ public class PlayerController : Singleton<PlayerController>
 
                     //add movement delay
                     StartCoroutine(MovementDelay());
+
+                    CorrectPosition();
                 }
             }
             //if the player swipes left on the x axis
@@ -134,6 +136,8 @@ public class PlayerController : Singleton<PlayerController>
 
                     //add movement delay
                     StartCoroutine(MovementDelay());
+
+                    CorrectPosition();
                 }
             }
         }
@@ -277,6 +281,22 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
+    private void CorrectPosition()
+    {
+        if(transform.position.x < -2f && transform.position.x > -0.8f)
+        {
+            targetPos = new Vector3(-2f, 0f, 0f);
+        }
+        else if(transform.position.x < 0.8f && transform.position.x > -0.8f)
+        {
+            targetPos = Vector3.zero;
+        }
+        else if(transform.position.x < 2f && transform.position.x > 0.8f)
+        {
+            targetPos = new Vector3(2f, 0f, 0f);
+        }
+    }
+
     /// <summary>
     /// Rotates the players model at the speed of the track
     /// </summary>
@@ -295,8 +315,6 @@ public class PlayerController : Singleton<PlayerController>
         playerActionMap.Enable();
 
         //Store the correct functions for when a swipe is performed/started and a touch is canceled/lifted
-        //playerActionMap.PlayerMovement.Swipe.performed += OnSwipePerformed;
-        //playerActionMap.PlayerMovement.Touch.canceled += OnSwipeEnded;
         playerActionMap.PlayerMovement.Swipe.performed += OnSwipeEnded;
 
 

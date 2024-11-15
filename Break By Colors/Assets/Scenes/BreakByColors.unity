@@ -3320,7 +3320,6 @@ MonoBehaviour:
   maxTrackSpeed: 50
   speedAccelerationMultiplier: 1.5
   moving: 0
-  inTutorial: 0
   pool: {fileID: 0}
 --- !u!114 &992862522
 MonoBehaviour:
@@ -3337,11 +3336,9 @@ MonoBehaviour:
   maxPoolSize: 0
   track50Prefab: {fileID: 2715702848744774503, guid: dcc58bf105fd4e348b55febd008eae3d,
     type: 3}
-  tutorialTrackPrefabs:
-  - {fileID: 7132257356282267815, guid: b1c3a3cc26450e4479d71a8d0af64633, type: 3}
-  - {fileID: 8029167080220426459, guid: 8ef218fd179ab0540975d933b58a119d, type: 3}
+  tutorialTrackPrefab: {fileID: 4844015283700639040, guid: f6dccef28860a174892f82d11f1f210c,
+    type: 3}
   trackPool: []
-  tutorialTracks: []
 --- !u!1 &1008148463
 GameObject:
   m_ObjectHideFlags: 0
@@ -4835,6 +4832,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ParticleBlackHole
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817241119294514091, guid: 660c0b02509dd5d4892c9847e71c55ed,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2467462298096940563, guid: 660c0b02509dd5d4892c9847e71c55ed,
         type: 3}

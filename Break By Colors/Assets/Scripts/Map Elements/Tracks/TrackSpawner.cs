@@ -27,7 +27,6 @@ public class TrackSpawner : Singleton<TrackSpawner>
     private float speedAccelerationMultiplier;
 
     public bool moving = false;
-    public bool inTutorial;
 
     //reference to the drone object pool
     public TrackObjectPool pool;
@@ -64,12 +63,11 @@ public class TrackSpawner : Singleton<TrackSpawner>
 
     public void SpawnTrack()
     {
-        if (!GameManager.Instance.tutorialSetting)
+        if (GameManager.Instance.tutorialSetting)
         {
             pool.DestroyTutorialTrack();
             pool.SpawnTutorialTrack();
             pool.DestroyTrackPool();
-            inTutorial = true;
         }
         else
         {
@@ -80,17 +78,15 @@ public class TrackSpawner : Singleton<TrackSpawner>
 
     private void LaunchSpawnTrack()
     {
-        if (!GameManager.Instance.tutorialSetting)
+        if (GameManager.Instance.tutorialSetting)
         {
             pool = gameObject.GetComponent<TrackObjectPool>();
             pool.SpawnTutorialTrack();
-            inTutorial = true;
         }
         else
         {
             pool = gameObject.GetComponent<TrackObjectPool>();
             pool.SpawnGameTrack();
-            inTutorial = false;
         }
     }
 
@@ -99,14 +95,8 @@ public class TrackSpawner : Singleton<TrackSpawner>
     /// </summary>
     private void ResetTrack()
     {
-        if(!inTutorial)
-        {
-            pool.DestroyTrackPool();
-        }
-        else
-        {
-            pool.DestroyTutorialTrack();
-        }
+        pool.DestroyTrackPool();
+        pool.DestroyTutorialTrack();
 
         LaunchSpawnTrack();
     }

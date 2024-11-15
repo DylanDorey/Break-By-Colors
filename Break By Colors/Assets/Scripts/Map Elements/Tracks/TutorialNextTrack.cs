@@ -11,9 +11,11 @@ public class TutorialNextTrack : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            TrackSpawner.Instance.pool.SpawnNextTutorialTrack(nextTrackIndex);
+            TrackSpawner.Instance.pool.SpawnGameTrack();
 
             PlayerController.Instance.transform.position = Vector3.zero;
+
+            GameManager.Instance.tutorialSetting = false;
         }
     }
 }
