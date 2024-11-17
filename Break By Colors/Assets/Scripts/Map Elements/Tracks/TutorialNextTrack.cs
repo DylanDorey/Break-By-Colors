@@ -7,6 +7,9 @@ public class TutorialNextTrack : MonoBehaviour
     [SerializeField]
     private int nextTrackIndex;
 
+    [SerializeField]
+    private GameObject tutUI;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
@@ -16,6 +19,11 @@ public class TutorialNextTrack : MonoBehaviour
             PlayerController.Instance.transform.position = Vector3.zero;
 
             GameManager.Instance.tutorialSetting = false;
+
+            foreach(GameObject screen in UIManager.Instance.tutorialScreens)
+            {
+                screen.SetActive(false);
+            }
         }
     }
 }

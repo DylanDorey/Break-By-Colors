@@ -28,6 +28,7 @@ public class UIManager : Singleton<UIManager>
         GameEventBus.Subscribe(GameState.returnToMenu, EnableMenuUI);
         GameEventBus.Subscribe(GameState.settingsMenu, EnableSettingsUI);
         GameEventBus.Subscribe(GameState.startGame, EnablePlayingUI);
+        GameEventBus.Subscribe(GameState.startGame, EnableTutorialScreens);
         GameEventBus.Subscribe(GameState.pauseGame, EnablePausedUI);
         GameEventBus.Subscribe(GameState.resumeGame, EnablePlayingUI);
         GameEventBus.Subscribe(GameState.gameOver, EnableGameOverUI);
@@ -39,6 +40,7 @@ public class UIManager : Singleton<UIManager>
         GameEventBus.Unsubscribe(GameState.returnToMenu, EnableMenuUI);
         GameEventBus.Unsubscribe(GameState.settingsMenu, EnableSettingsUI);
         GameEventBus.Unsubscribe(GameState.startGame, EnablePlayingUI);
+        GameEventBus.Unsubscribe(GameState.startGame, EnableTutorialScreens);
         GameEventBus.Unsubscribe(GameState.pauseGame, EnablePausedUI);
         GameEventBus.Unsubscribe(GameState.resumeGame, EnablePlayingUI);
         GameEventBus.Unsubscribe(GameState.gameOver, EnableGameOverUI);
@@ -109,5 +111,52 @@ public class UIManager : Singleton<UIManager>
         gameScreen.SetActive(game);
         pausedScreen.SetActive(paused);
         gameOverScreen.SetActive(over);
+    }
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    //Tutorial UI
+
+    public GameObject t1Screen, t2Screen, t3Screen, t4Screen, t5Screen;
+    public GameObject[] tutorialScreens;
+    public GameObject tutUI;
+
+    public void EnableTutorialScreens()
+    {
+        if(GameManager.Instance.tutorialSetting)
+        {
+            tutUI.SetActive(true);
+        }
+        else
+        {
+            tutUI.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// enables the first tutorial UI trigger
+    /// </summary>
+    public void EnableTrigger(GameObject screen)
+    {
+        EnableDisableScreens(screen);
+    }
+
+
+    private void EnableDisableScreens(GameObject dontDisable)
+    {
+        tutorialScreens = new GameObject[5] { t1Screen, t2Screen, t3Screen, t4Screen, t5Screen };
+
+        foreach (GameObject screen in tutorialScreens)
+        {
+            if (screen.name != dontDisable.name)
+            {
+                screen.SetActive(false);
+            }
+            else
+            {
+                screen.SetActive(true);
+            }
+        }
     }
 }

@@ -75,11 +75,6 @@ public class PlayerController : Singleton<PlayerController>
         //move in the direction of the current x and y movement values * players speed
         transform.position = Vector3.Lerp(transform.position, targetPos, movementDampaner);
 
-        if (Mathf.Approximately(transform.position.x, 0f))
-        {
-            transform.position = Vector3.zero;
-        }
-
         CheckIfGrounded();
         BallRotate();
     }
@@ -118,7 +113,6 @@ public class PlayerController : Singleton<PlayerController>
 
                     //add movement delay
                     StartCoroutine(MovementDelay());
-
                     CorrectPosition();
                 }
             }
@@ -136,7 +130,6 @@ public class PlayerController : Singleton<PlayerController>
 
                     //add movement delay
                     StartCoroutine(MovementDelay());
-
                     CorrectPosition();
                 }
             }
@@ -283,15 +276,15 @@ public class PlayerController : Singleton<PlayerController>
 
     private void CorrectPosition()
     {
-        if(transform.position.x < -2f && transform.position.x > -0.8f)
+        if(transform.position.x < -2f && transform.position.x > -0.1f)
         {
             targetPos = new Vector3(-2f, 0f, 0f);
         }
-        else if(transform.position.x < 0.8f && transform.position.x > -0.8f)
+        else if(transform.position.x < 0.1f && transform.position.x > -0.1f)
         {
             targetPos = Vector3.zero;
         }
-        else if(transform.position.x < 2f && transform.position.x > 0.8f)
+        else if(transform.position.x < 2f && transform.position.x > 0.1f)
         {
             targetPos = new Vector3(2f, 0f, 0f);
         }

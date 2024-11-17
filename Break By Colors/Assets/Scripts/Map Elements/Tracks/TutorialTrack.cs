@@ -5,7 +5,7 @@ using UnityEngine;
 public class TutorialTrack : MonoBehaviour
 {
     //speed of the track
-    private readonly float speed = 18;
+    private readonly float speed = 15;
 
     private void FixedUpdate()
     {
