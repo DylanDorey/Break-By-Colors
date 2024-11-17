@@ -94,7 +94,7 @@ public class Save : Singleton<Save>
 
         //save.highScore = 0;
         //save.audioSetting = true;
-        //save.tutorialSetting = false;
+        //save.tutorialSetting = true;
 
         //return the save object
         return save;

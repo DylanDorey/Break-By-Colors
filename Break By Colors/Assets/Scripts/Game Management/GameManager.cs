@@ -37,6 +37,16 @@ public class GameManager : Singleton<GameManager>
     public AudioClip menuMusic;
     public AudioClip gameplayMusic;
 
+    private void OnEnable()
+    {
+        GameEventBus.Subscribe(GameState.gameLaunch, SetTutorialSetting);
+    }
+
+    private void OnDisable()
+    {
+        GameEventBus.Unsubscribe(GameState.gameLaunch, SetTutorialSetting);
+    }
+
     private void Start()
     {
         //start the game in the main menu by publishing the menu game event

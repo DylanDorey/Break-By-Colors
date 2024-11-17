@@ -118,7 +118,7 @@ public class UIManager : Singleton<UIManager>
     ///////////////////////////////////////////////////////////////////////////////////////////
     //Tutorial UI
 
-    public GameObject t1Screen, t2Screen, t3Screen, t4Screen, t5Screen;
+    public GameObject t1Screen, t2Screen, t3Screen, t4Screen, t5Screen, t6Screen, t7Screen;
     public GameObject[] tutorialScreens;
     public GameObject tutUI;
 
@@ -145,7 +145,7 @@ public class UIManager : Singleton<UIManager>
 
     private void EnableDisableScreens(GameObject dontDisable)
     {
-        tutorialScreens = new GameObject[5] { t1Screen, t2Screen, t3Screen, t4Screen, t5Screen };
+        tutorialScreens = new GameObject[7] { t1Screen, t2Screen, t3Screen, t4Screen, t5Screen, t6Screen, t7Screen };
 
         foreach (GameObject screen in tutorialScreens)
         {

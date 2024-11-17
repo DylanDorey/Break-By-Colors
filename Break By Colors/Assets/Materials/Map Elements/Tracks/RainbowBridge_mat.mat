@@ -40,8 +40,10 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _BorderAmount: 0.1
+    - _BorderBrightness: 2
     - _QueueControl: 0
-    - _RainbowBrightness: 1.75
-    - _RainbowSpeed: 0.25
+    - _RainbowBrightness: 1.5
+    - _RainbowSpeed: 0.1
     m_Colors: []
   m_BuildTextureStacks: []
