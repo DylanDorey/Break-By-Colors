@@ -7625,6 +7625,7 @@ MonoBehaviour:
   gameOverScreen: {fileID: 296529491}
   targetColor: {fileID: 406598493}
   score: {fileID: 891595469}
+  goScore: {fileID: 1846778922}
   highScore: {fileID: 14631327}
   tutorialToggle: {fileID: 414723148}
   audioToggle: {fileID: 452295716}

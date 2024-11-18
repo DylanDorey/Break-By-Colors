@@ -48,14 +48,14 @@ public class TutorialWall : MonoBehaviour
                 else
                 {
                     PlayerController.Instance.ResetPlayerPosition();
-                    track.transform.position += new Vector3(0f, 0f, 50f);
+                    track.transform.position += new Vector3(0f, 0f, 45f);
                     //transform.parent.transform.parent.transform.position = Vector3.zero;
                 }
             }
             else
             {
                 PlayerController.Instance.transform.position = Vector3.zero;
-                track.transform.position += new Vector3(0f, 0f, 50f);
+                track.transform.position += new Vector3(0f, 0f, 45f);
             }
         }
     }

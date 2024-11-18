@@ -17,6 +17,7 @@ public class PlayerData : Singleton<PlayerData>
 
     [SerializeField]
     private int currentScore;
+    public int savedCurrentScore;
     public int highScore;
 
     private void OnEnable()
@@ -85,6 +86,8 @@ public class PlayerData : Singleton<PlayerData>
         {
             highScore = currentScore;
         }
+
+        savedCurrentScore = currentScore;
 
         //highScore = 0;
         currentScore = 0;

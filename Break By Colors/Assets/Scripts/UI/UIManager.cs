@@ -16,6 +16,7 @@ public class UIManager : Singleton<UIManager>
 
     //player's score
     public TextMeshProUGUI score;
+    public TextMeshProUGUI goScore;
     public TextMeshProUGUI highScore;
 
     public Toggle tutorialToggle;
@@ -50,6 +51,7 @@ public class UIManager : Singleton<UIManager>
     {
         targetColor.color = PlayerData.Instance.GetTargetColor();
         score.text = PlayerData.Instance.GetCurrentScore().ToString();
+        goScore.text = PlayerData.Instance.savedCurrentScore.ToString();
         highScore.text = PlayerData.Instance.GetHighScore().ToString();
     }
 
