@@ -113,7 +113,7 @@ public class PlayerController : Singleton<PlayerController>
 
                     //add movement delay
                     StartCoroutine(MovementDelay());
-                    CorrectPosition();
+                    //CorrectPosition();
                 }
             }
             //if the player swipes left on the x axis
@@ -130,7 +130,7 @@ public class PlayerController : Singleton<PlayerController>
 
                     //add movement delay
                     StartCoroutine(MovementDelay());
-                    CorrectPosition();
+                    //CorrectPosition();
                 }
             }
         }

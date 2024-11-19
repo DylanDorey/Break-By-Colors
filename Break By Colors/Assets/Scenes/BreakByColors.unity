@@ -3738,7 +3738,7 @@ MonoBehaviour:
   settingsButtonClickSound: {fileID: 8300000, guid: 9b723641d6313044a9c94e44c6f34ad8,
     type: 3}
   menuMusic: {fileID: 8300000, guid: e57891a209a6ac645b005822d7324edd, type: 3}
-  gameplayMusic: {fileID: 8300000, guid: 1283dfecdb2ce4447801b19203fda1e7, type: 3}
+  gameplayMusic: {fileID: 8300000, guid: 3fc331fd768b47047bc49ea96d747e92, type: 3}
 --- !u!114 &1031250725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5867,6 +5867,7 @@ MonoBehaviour:
   targetColor: {r: 0, g: 0, b: 0, a: 0}
   playerColor: {r: 0, g: 0, b: 0, a: 0}
   currentScore: 0
+  savedCurrentScore: 0
   highScore: 0
 --- !u!1 &1508251385
 GameObject:

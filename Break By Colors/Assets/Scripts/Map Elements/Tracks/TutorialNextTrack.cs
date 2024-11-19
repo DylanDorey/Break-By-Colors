@@ -19,8 +19,9 @@ public class TutorialNextTrack : MonoBehaviour
             PlayerController.Instance.transform.position = Vector3.zero;
 
             GameManager.Instance.tutorialSetting = false;
+            UIManager.Instance.tutorialToggle.isOn = false;
 
-            foreach(GameObject screen in UIManager.Instance.tutorialScreens)
+            foreach (GameObject screen in UIManager.Instance.tutorialScreens)
             {
                 screen.SetActive(false);
             }
