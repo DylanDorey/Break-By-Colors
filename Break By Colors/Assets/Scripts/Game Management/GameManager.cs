@@ -156,7 +156,7 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void OpenFeedbackForm()
     {
-        //Application.OpenURL();
+        Application.OpenURL("https://forms.gle/Ffwu1zeA4nwKrjYY7");
 
         AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);
     }
