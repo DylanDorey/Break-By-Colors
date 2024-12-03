@@ -18,7 +18,8 @@ public enum GameState
     pauseGame,
     resumeGame,
     gameOver,
-    returnToMenu
+    returnToMenu,
+    exitGame
 }
 
 public class GameManager : Singleton<GameManager>
@@ -151,12 +152,17 @@ public class GameManager : Singleton<GameManager>
         //Application.OpenURL(String URL)
     }
 
+    private void OnApplicationQuit()
+    {
+        GameEventBus.Publish(GameState.exitGame);
+    }
+
     /// <summary>
     /// This will allow the user to open a player feedback form
     /// </summary>
-    public void OpenFeedbackForm()
+    public void OpenFeedbackForm(string url)
     {
-        Application.OpenURL("https://forms.gle/Ffwu1zeA4nwKrjYY7");
+        Application.OpenURL(url);
 
         AudioManager.Instance.PlayAudio(buttonAudioSource, buttonClickSound, false);
     }

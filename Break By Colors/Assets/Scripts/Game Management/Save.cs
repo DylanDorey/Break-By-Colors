@@ -17,12 +17,14 @@ public class Save : Singleton<Save>
     {
         GameEventBus.Subscribe(GameState.loadGame, LoadSave);
         GameEventBus.Subscribe(GameState.returnToMenu, SaveGame);
+        GameEventBus.Subscribe(GameState.exitGame, SaveGame);
     }
 
     private void OnDisable()
     {
         GameEventBus.Unsubscribe(GameState.loadGame, LoadSave);
         GameEventBus.Unsubscribe(GameState.returnToMenu, SaveGame);
+        GameEventBus.Unsubscribe(GameState.exitGame, SaveGame);
     }
 
     /// <summary>

@@ -14,6 +14,9 @@ public class Track : MonoBehaviour
     public float speed;
     private int localTrackSize;
 
+    private Material[] wallMaterials = new Material[4];
+    public Material[] pullMaterials;
+
     public Transform[] wallSpawnPoints;
     public List<GameObject> walls;
     public GameObject wallPrefab;
@@ -95,6 +98,9 @@ public class Track : MonoBehaviour
                 wall.transform.parent = wallObjectParent.transform;
 
                 wall.name = "Wall";
+
+                //HERE
+                //wall.GetComponent<Wall>().SetWallColor(SetMaterial());
             }
             else
             {
@@ -106,6 +112,8 @@ public class Track : MonoBehaviour
                 gap.name = "Gap";
             }
         }
+
+        InitializeWallColors();
     }
 
     /// <summary>
@@ -122,10 +130,11 @@ public class Track : MonoBehaviour
 
                 GameObject wall = Instantiate(wallPrefab, gameObject.transform.GetChild(3).transform.GetChild(index).position, Quaternion.identity);
                 walls.Add(wall);
-
                 wall.transform.parent = gameObject.transform.GetChild(3).transform;
-
                 wall.name = "Wall";
+
+                //HERE
+                //wall.GetComponent<Wall>().SetWallColor(SetMaterial());
 
                 Destroy(tempWall);
             }
@@ -145,6 +154,50 @@ public class Track : MonoBehaviour
         gap.transform.parent = gameObject.transform.GetChild(3).transform;
 
         gap.name = "Gap";
+
+        InitializeWallColors();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    private Material SetMaterials(int index)
+    {
+        Material newMaterial = wallMaterials[index];
+
+        return newMaterial;
+    }
+
+    private void InitializeWallColors()
+    {
+        List<int> availablePositions = new List<int> { 0, 1, 2, 3 };
+
+        for (int index1 = 0; index1 < 4; index1++)
+        {
+            int randomIndex = availablePositions[Random.Range(0, availablePositions.Count)];
+
+            wallMaterials[randomIndex] = pullMaterials[index1];
+
+            availablePositions.Remove(randomIndex);
+        }
+
+        int index = 0;
+        foreach (GameObject wall in walls)
+        {
+            if (wall.GetComponent<Wall>())
+            {
+                if (index < 4)
+                {
+                    wall.GetComponent<Wall>().SetWallColor(SetMaterials(index));
+                    index++;
+                }
+                else
+                {
+                    wall.GetComponent<Wall>().SetWallColor(SetMaterials(Random.Range(0, 4)));
+                }
+            }
+        }
     }
 
     /// <summary>

@@ -25,16 +25,11 @@ public class Wall : MonoBehaviour
 
     private void Start()
     {
-        //thisMaterial = transform.GetChild(0).GetComponent<Renderer>().material;
-
-        wallRenderer = transform.GetChild(0).GetComponent<Renderer>();
-        wallRenderer.sharedMaterial = wallMaterials[Random.Range(0, 4)];
-        thisWallColor = InitializeCurrentColor();
+        //wallRenderer = transform.GetChild(0).GetComponent<Renderer>();
+        //wallRenderer.sharedMaterial = wallMaterials[Random.Range(0, 4)];
+        //thisWallColor = InitializeCurrentColor();
         wallBreakSounds = AudioManager.Instance.wallBreakSounds;
         wallAudioSource = AudioManager.Instance.wallAudioSource;
-
-
-        //thisMaterial.color = wallColors[Random.Range(0, wallColors.Length)];
     }
 
     private void OnTriggerEnter(Collider other)
@@ -48,13 +43,12 @@ public class Wall : MonoBehaviour
                 player.SetNewTargetColor(wallColors[Random.Range(0, wallColors.Length)]);
                 player.AddCurrentScore(scoreValue);
                 AudioManager.Instance.PlayAudio(wallAudioSource, wallBreakSounds[Random.Range(0, wallBreakSounds.Length)], false);
-                TrackEventBus.Publish(TrackEvent.changeSpeed);
+                TrackSpawner.Instance.TrackSpeedUpdate(1.05f);
             }
             else
             {
                 //Set the game to game over
                 GameEventBus.Publish(GameState.gameOver);
-                //AudioManager.Instance.PlayAudio(wallAudioSource, wallBreakSounds[3], false);
             }
         }
     }
@@ -77,5 +71,14 @@ public class Wall : MonoBehaviour
         {
             return Color.yellow * 20f;
         }
+    }
+
+    public void SetWallColor(Material material)
+    {
+        wallRenderer = transform.GetChild(0).GetComponent<Renderer>();
+
+        wallRenderer.sharedMaterial = material;
+
+        thisWallColor = InitializeCurrentColor();
     }
 }

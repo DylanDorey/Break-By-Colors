@@ -27,6 +27,8 @@ public class Gap : MonoBehaviour
             player = other.gameObject.GetComponent<PlayerData>();
             player.SetNewTargetColor(wallColors[Random.Range(0, wallColors.Length)]);
             player.AddCurrentScore(scoreValue);
+
+            TrackSpawner.Instance.TrackSpeedUpdate(1.3f);
         }
     }
 }

@@ -85,6 +85,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
+  wallMaterials:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  pullMaterials:
+  - {fileID: 2100000, guid: f21b4c93d62a42940964bd18698d2327, type: 2}
+  - {fileID: 2100000, guid: fea1b7609f70cba428ec3fa38fde4e9a, type: 2}
+  - {fileID: 2100000, guid: 888a4f90f83e4554c912f4a8e47ff704, type: 2}
+  - {fileID: 2100000, guid: f45ba44f79420d74abd5bd79b94507f3, type: 2}
   wallSpawnPoints:
   - {fileID: 6396501647907582071}
   - {fileID: 670870713401120970}

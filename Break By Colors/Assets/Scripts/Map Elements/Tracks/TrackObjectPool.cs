@@ -38,8 +38,6 @@ public class TrackObjectPool : MonoBehaviour
             maxPoolSize = TrackSpawner.Instance.trackLength;
         }
 
-        wallSpawnChance = TrackSpawner.Instance.wallSpawnChance;
-
         for (int index = 0; index < maxPoolSize; index++)
         {   
             GameObject track = Instantiate(track50Prefab, Vector3.zero, Quaternion.identity);

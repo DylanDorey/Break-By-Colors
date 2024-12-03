@@ -16,15 +16,7 @@ public class TrackSpawner : Singleton<TrackSpawner>
     [Tooltip("! MUST MATCH THE LENGTH OF THE TRACK PREFAB !")]
     public int trackSize;
 
-    [Tooltip("The likeliness that a wall will not spawn")]
-    [Range(1, 5)] public int wallSpawnChance;
-
-    [Tooltip("The max speed the track can move at")]
     [Range(1, 100)] public int maxTrackSpeed;
-
-    [Tooltip("The speed at which the track increases speed over time")]
-    [SerializeField]
-    private float speedAccelerationMultiplier;
 
     public bool moving = false;
 
@@ -33,8 +25,6 @@ public class TrackSpawner : Singleton<TrackSpawner>
 
     private void OnEnable()
     {
-        TrackEventBus.Subscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
-
         GameEventBus.Subscribe(GameState.gameLaunch, LaunchSpawnTrack);
 
         GameEventBus.Subscribe(GameState.returnToMenu, SpawnTrack);
@@ -48,8 +38,6 @@ public class TrackSpawner : Singleton<TrackSpawner>
 
     private void OnDisable()
     {
-        TrackEventBus.Unsubscribe(TrackEvent.changeSpeed, UpdateTrackSpeed);
-
         GameEventBus.Unsubscribe(GameState.gameLaunch, LaunchSpawnTrack);
 
         GameEventBus.Unsubscribe(GameState.returnToMenu, SpawnTrack);
@@ -114,7 +102,7 @@ public class TrackSpawner : Singleton<TrackSpawner>
     /// <summary>
     /// Updates the speed of the tracks
     /// </summary>
-    public void UpdateTrackSpeed()
+    public void TrackSpeedUpdate(float speedChange)
     {
         //if the tracks speed is less than the max track speed
         if (pool.trackPool[0].GetComponent<Track>().GetSpeed() < maxTrackSpeed)
@@ -123,7 +111,7 @@ public class TrackSpawner : Singleton<TrackSpawner>
             foreach (GameObject trackObject in pool.trackPool)
             {
                 Track track = trackObject.GetComponent<Track>();
-                track.SetSpeed(track.GetSpeed() + speedAccelerationMultiplier);
+                track.SetSpeed(track.GetSpeed() + speedChange);
             }
         }
     }
