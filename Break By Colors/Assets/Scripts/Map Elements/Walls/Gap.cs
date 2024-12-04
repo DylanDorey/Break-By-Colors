@@ -25,6 +25,7 @@ public class Gap : MonoBehaviour
         {
             AudioManager.Instance.PlayAudio(gapAudioSource, gapSound, false);
             player = other.gameObject.GetComponent<PlayerData>();
+            player.plusOneParticle.Play();
             player.SetNewTargetColor(wallColors[Random.Range(0, wallColors.Length)]);
             player.AddCurrentScore(scoreValue);
 

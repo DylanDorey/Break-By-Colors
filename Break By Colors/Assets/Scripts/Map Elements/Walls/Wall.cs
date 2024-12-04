@@ -40,6 +40,7 @@ public class Wall : MonoBehaviour
 
             if (player.GetTargetColor() == thisWallColor)
             {
+                player.plusTwoParticle.Play();
                 player.SetNewTargetColor(wallColors[Random.Range(0, wallColors.Length)]);
                 player.AddCurrentScore(scoreValue);
                 AudioManager.Instance.PlayAudio(wallAudioSource, wallBreakSounds[Random.Range(0, wallBreakSounds.Length)], false);
