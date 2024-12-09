@@ -257,7 +257,7 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: D:/Chico/CAGD377 Mobile Game Development/ColorSmashersKeystoreFile.keystore
+  AndroidKeystoreName: C:/Users/xtrap/Documents/.CAGD/GitHub/ColorSmashersKeystoreFile.keystore
   AndroidKeyaliasName: colorsmashkey
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0
