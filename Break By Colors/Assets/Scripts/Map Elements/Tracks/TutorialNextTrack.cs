@@ -25,6 +25,8 @@ public class TutorialNextTrack : MonoBehaviour
             {
                 screen.SetActive(false);
             }
+
+            PlayerData.Instance.ResetCurrentScore();
         }
     }
 }

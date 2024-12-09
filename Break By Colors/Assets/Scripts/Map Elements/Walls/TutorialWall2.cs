@@ -41,6 +41,7 @@ public class TutorialWall2 : MonoBehaviour
             {
                 if (player.GetTargetColor() == thisWallColor)
                 {
+                    player.plusTwoParticle.Play();
                     player.AddCurrentScore(scoreValue);
                     AudioManager.Instance.PlayAudio(wallAudioSource, wallBreakSounds[Random.Range(0, wallBreakSounds.Length)], false);
                     player.SetNewTargetColor(Color.yellow * 20f);

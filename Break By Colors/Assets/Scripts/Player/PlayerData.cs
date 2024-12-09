@@ -123,6 +123,14 @@ public class PlayerData : Singleton<PlayerData>
     }
 
     /// <summary>
+    /// resets the player's scor eback to 0
+    /// </summary>
+    public void ResetCurrentScore()
+    {
+        currentScore = 0;
+    }
+
+    /// <summary>
     /// Sets the new target color for the player
     /// </summary>
     /// <param name="newColor"></param>
