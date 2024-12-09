@@ -21,6 +21,7 @@ public class PlayerData : Singleton<PlayerData>
     public int highScore;
     public ParticleSystem plusTwoParticle;
     public ParticleSystem plusOneParticle;
+    public ParticleSystem hitParticle;
 
     private void OnEnable()
     {
