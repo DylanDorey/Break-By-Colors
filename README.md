@@ -1,1 +1,2 @@
 # Break-By-Colors
+Break by Colors is an Endless Runner 3D puzzle game where players must match colors, dodge obstacles by switching lanes, and score as many points as possible worked on by two Developers. A programmer / Producer (Dylan Dorey), and a designer (Brad Farris). The mobile game was create over the course of 7, 2 week sprints and involved four different playtest milestones. An internal playtest for the electronic prototype, a closed Alpha, open beta, and a full production release on December 9th, 2024.
