@@ -11235,23 +11235,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1467312596}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnMoveLeft
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3b34913f-d63f-4028-97a4-285eec5f19e8
-    m_ActionName: Player Movement/Move Left[/Keyboard/a]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1467312596}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnMoveRight
+        m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11346,11 +11330,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementDampaner: 0.3
   movementDelay: 0.2
+  moveSpeed: 1.2
+  _playerJumpPosition: {fileID: 701740465}
   rb: {fileID: 0}
-  targetPos: {x: 0, y: 0, z: 0}
   hasMoved: 0
   swiped: 0
   isGrounded: 1
+  playerModelTransform: {fileID: 8833363567197505837}
 --- !u!54 &1467312597
 Rigidbody:
   m_ObjectHideFlags: 0

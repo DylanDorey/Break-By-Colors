@@ -9,60 +9,50 @@ using UnityEngine.InputSystem;
  * [A controller that allows the player to move left, right, and jump]
  */
 
-public enum MoveDirection
-{
-    Left = -2,
-    Right = 2
-};
-
 public class PlayerController : Singleton<PlayerController>
 {
-
-    [Range(0.0f, 1.0f)]
-    [Tooltip("How fast the player controller moves")]
-    public float movementDampaner;
-
     [Range(0.1f, 1.0f)]
     [Tooltip("The time before another movement can be made")]
     public float movementDelay;
 
+    [Range(0f, 10f)]
+    [Tooltip("The time before another movement can be made")]
+    public float moveSpeed;
+
+    [SerializeField]
+    private Transform _playerJumpPosition;
+
     public Rigidbody rb;
-    //private Vector3 moveLeftDistance = new Vector3(-2f, 0f, 0f);
-    //private Vector3 moveRightDistance = new Vector3(2f, 0f, 0f);
-    public Vector3 targetPos = new Vector3(0f, 0f, 0f);
 
-    [SerializeField]
-    private bool hasMoved = false;
-    public bool swiped = false;
-
-    [SerializeField]
     private bool isGrounded = true;
 
+    [SerializeField]
     private Transform playerModelTransform;
 
     private Vector2 swipeDirection;
 
     private Player playerActionMap;
 
-    //property for the current move direction of the player
-    public MoveDirection CurrentMoveDirection
-    {
-        get; private set;
-    }
-
-    private IPlayerState moveState;
-
-    //reference to the context of the player state
-    private PlayerStateContext playerStateContext;
+    private readonly Invoker _movementInvoker = new Invoker();
+    private Move _move;
+    private Jump _jump;
 
     private void OnEnable()
     {
+        GameEventBus.Subscribe(GameState.startGame, EnableInput);
+        GameEventBus.Subscribe(GameState.loadGame, DisableInput);
+        GameEventBus.Subscribe(GameState.gameOver, DisableInput);
         GameEventBus.Subscribe(GameState.returnToMenu, ResetPlayerPosition);
+        GameEventBus.Subscribe(GameState.returnToMenu, DisableInput);
     }
 
     private void OnDisable()
     {
+        GameEventBus.Unsubscribe(GameState.startGame, EnableInput);
+        GameEventBus.Unsubscribe(GameState.loadGame, DisableInput);
+        GameEventBus.Unsubscribe(GameState.gameOver, DisableInput);
         GameEventBus.Unsubscribe(GameState.returnToMenu, ResetPlayerPosition);
+        GameEventBus.Unsubscribe(GameState.returnToMenu, DisableInput);
     }
 
     private void Start()
@@ -72,9 +62,6 @@ public class PlayerController : Singleton<PlayerController>
 
     void FixedUpdate()
     {
-        //move in the direction of the current x and y movement values * players speed
-        transform.position = Vector3.Lerp(transform.position, targetPos, movementDampaner);
-
         CheckIfGrounded();
         BallRotate();
     }
@@ -99,59 +86,15 @@ public class PlayerController : Singleton<PlayerController>
         //if the player swipes further/more on the x axis
         if (Mathf.Abs(swipeDirection.x) > Mathf.Abs(swipeDirection.y))
         {
-            //if the player swipes right on the x axis
-            if (swipeDirection.x > 1f)
-            {
-                //if the player hasnt moved, and the players x position is currently less than 0.1, and isGrounded
-                if (!hasMoved && transform.position.x < 0.1f && isGrounded)
-                {
-                    //set the turn direction to the direction that was called
-                    CurrentMoveDirection = MoveDirection.Right;
-
-                    //transition the player's state
-                    playerStateContext.Transition(moveState);
-
-                    //add movement delay
-                    StartCoroutine(MovementDelay());
-                    //CorrectPosition();
-                }
-            }
-            //if the player swipes left on the x axis
-            else if (swipeDirection.x < 1f)
-            {
-                //if the player hasnt moved, and the players x position is currently greater than -0.1, and isGrounded
-                if (!hasMoved && transform.position.x > -0.1f && isGrounded)
-                {
-                    //set the turn direction to the direction that was called
-                    CurrentMoveDirection = MoveDirection.Left;
-
-                    //transition the player's state
-                    playerStateContext.Transition(moveState);
-
-                    //add movement delay
-                    StartCoroutine(MovementDelay());
-                    //CorrectPosition();
-                }
-            }
+            _movementInvoker.InvokeMovement(_move, context, swipeDirection);
         }
         //otherwise, if the player swipes further/more on the y axis
         else
         {
             //if the player swipes up on the y axis
-            if (swipeDirection.y > 1f)
+            if (swipeDirection.y > 1f && isGrounded)
             {
-                //if the player isGrounded
-                if (isGrounded)
-                {
-                    //add jump force to the player
-                    //rb.AddForce((Vector3.up * 30f), ForceMode.Impulse);
-                    targetPos = new Vector3(transform.position.x, 2.5f, transform.position.z);
-
-                    //add movement delay
-                    StartCoroutine(MovementDelay());
-
-                    StartCoroutine(AirStall());
-                }
+                _movementInvoker.InvokeMovement(_jump, context, swipeDirection);
             }
         }
     }
@@ -160,48 +103,10 @@ public class PlayerController : Singleton<PlayerController>
     /// Moves the player left
     /// </summary>
     /// <param name="context"> the state of the input recieved </param>
-    public void OnMoveLeft(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        //if the input was performed
-        if (context.performed)
-        {
-            //if the player hasnt moved, and the players x position is currently greater than -0.1
-            if (!hasMoved && transform.position.x > -0.1f && isGrounded)
-            {
-                //set the turn direction to the direction that was called
-                CurrentMoveDirection = MoveDirection.Left;
-
-                //transition the player's state
-                playerStateContext.Transition(moveState);
-
-                //add movement delay
-                StartCoroutine(MovementDelay());
-            }
-        }
-    }
-
-    /// <summary>
-    /// Moves the player right
-    /// </summary>
-    /// <param name="context"> the state of the input recieved </param>
-    public void OnMoveRight(InputAction.CallbackContext context)
-    {
-        //if the input was performed
-        if (context.performed)
-        {
-            //if the player hasnt moved, and the players x position is currently less than 0.1
-            if (!hasMoved && transform.position.x < 0.1f && isGrounded)
-            {
-                //set the turn direction to the direction that was called
-                CurrentMoveDirection = MoveDirection.Right;
-
-                //transition the player's state
-                playerStateContext.Transition(moveState);
-
-                //add movement delay
-                StartCoroutine(MovementDelay());
-            }
-        }
+        Vector2 value = context.ReadValue<Vector2>();
+        _movementInvoker.InvokeMovement(_move, context, value);
     }
 
     /// <summary>
@@ -210,58 +115,13 @@ public class PlayerController : Singleton<PlayerController>
     /// <param name="context"> the state of the input recieved </param>
     public void OnJump(InputAction.CallbackContext context)
     {
-        //if the input was performed
-        if (context.performed)
-        {
-            if (isGrounded)
-            {
-                //rb.AddForce((Vector3.up * 60f), ForceMode.Impulse);
-                targetPos = new Vector3(transform.position.x, 2.5f, transform.position.z);
-
-                //add movement delay
-                StartCoroutine(MovementDelay());
-
-                StartCoroutine(AirStall());
-            }
-        }
-    }
-
-    /// <summary>
-    /// Adds a delay between each movement made by the player
-    /// </summary>
-    /// <returns> time between movements </returns>
-    private IEnumerator MovementDelay()
-    {
-        for (int index = 0; index < 1; index++)
-        {
-            //set hasMoved to true and wait 0.9 seconds
-            hasMoved = true;
-
-            yield return new WaitForSeconds(movementDelay);
-        }
-
-        //set hasMoved back to false
-        hasMoved = false;
-    }
-
-    /// <summary>
-    /// Adds a delay between each movement made by the player
-    /// </summary>
-    /// <returns> time between movements </returns>
-    private IEnumerator AirStall()
-    {
-        yield return new WaitForSeconds(.3f);
-
-        targetPos = new Vector3(transform.position.x, 0f, transform.position.z);
-
-        //add movement delay
-        StartCoroutine(MovementDelay());
+        _movementInvoker.InvokeMovement(_jump, context, swipeDirection);
     }
 
     /// <summary>
     /// Checks if the player is on the ground
     /// </summary>
-    private void CheckIfGrounded()
+    public void CheckIfGrounded()
     {
         //if the raycast hits something
         if (Physics.Raycast(transform.position, Vector3.down, 0.7f))
@@ -271,22 +131,6 @@ public class PlayerController : Singleton<PlayerController>
         else
         {
             isGrounded = false;
-        }
-    }
-
-    private void CorrectPosition()
-    {
-        if(transform.position.x < -2f && transform.position.x > -0.1f)
-        {
-            targetPos = new Vector3(-2f, 0f, 0f);
-        }
-        else if(transform.position.x < 0.1f && transform.position.x > -0.1f)
-        {
-            targetPos = Vector3.zero;
-        }
-        else if(transform.position.x < 2f && transform.position.x > 0.1f)
-        {
-            targetPos = new Vector3(2f, 0f, 0f);
         }
     }
 
@@ -308,20 +152,16 @@ public class PlayerController : Singleton<PlayerController>
         playerActionMap.Enable();
 
         //Store the correct functions for when a swipe is performed/started and a touch is canceled/lifted
-        playerActionMap.PlayerMovement.Swipe.performed += OnSwipeEnded;
-
+        //playerActionMap.PlayerMovement.Swipe.performed += OnSwipeEnded;
+        playerActionMap.PlayerMovement.Swipe.performed += OnMove;
 
         //initialize the player's rigidbody component
         rb = GetComponent<Rigidbody>();
 
-        //the player model's transform
-        playerModelTransform = transform.GetChild(0).transform;
+        _move = new Move(this, moveSpeed, movementDelay, this, _movementInvoker);
+        _jump = new Jump(this, _playerJumpPosition.position, movementDelay, 0.3f, this, _movementInvoker);
 
-        //intialize the player context object
-        playerStateContext = new PlayerStateContext(this);
-
-        //initialize the player move state intefaces
-        moveState = gameObject.AddComponent<PlayerMoveState>();
+        transform.position = Vector3.zero;
     }
 
     /// <summary>
@@ -329,7 +169,7 @@ public class PlayerController : Singleton<PlayerController>
     /// </summary>
     public void ResetPlayerPosition()
     {
-        targetPos = Vector3.zero;
+        _move.ResestPosition();
 
         StartCoroutine(DisableCollider());
     }
@@ -350,5 +190,15 @@ public class PlayerController : Singleton<PlayerController>
 
         GetComponent<SphereCollider>().enabled = true;
         rb.useGravity = true;
+    }
+
+    public void DisableInput()
+    {
+        _movementInvoker.DisableInvoker();
+    }
+
+    public void EnableInput()
+    {
+        _movementInvoker.EnableInvoker();
     }
 }

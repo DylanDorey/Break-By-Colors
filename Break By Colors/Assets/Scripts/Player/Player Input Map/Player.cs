@@ -28,22 +28,13 @@ public partial class @Player: IInputActionCollection2, IDisposable
             ""id"": ""19e74fda-6937-47d3-a1c2-77054e40c420"",
             ""actions"": [
                 {
-                    ""name"": ""Move Left"",
-                    ""type"": ""Button"",
-                    ""id"": ""3b34913f-d63f-4028-97a4-285eec5f19e8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Move Right"",
-                    ""type"": ""Button"",
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
                     ""id"": ""76019f10-831f-41b2-a194-488c93e30d3d"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Jump"",
@@ -83,28 +74,6 @@ public partial class @Player: IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""a19c5427-0174-42bd-86a6-8ae9f051fb3c"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move Left"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a375342a-1caa-45b7-9fe5-424ffe60c474"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move Right"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""fdebd44d-b4c8-4bf6-9786-ce2042c14dc6"",
@@ -148,6 +117,61 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""action"": ""Tap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""da3898a2-8fb2-4b73-909f-6a2e9e27bb98"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""5339023a-f93b-46d1-ab6c-3e8375f73038"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""6e461622-2975-4d2c-8ce4-02e36f30194b"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""f125662e-3a4e-45cc-9349-d8253601608d"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""cefc9820-93dc-4e1b-8940-c459006d536e"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -156,8 +180,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
 }");
         // Player Movement
         m_PlayerMovement = asset.FindActionMap("Player Movement", throwIfNotFound: true);
-        m_PlayerMovement_MoveLeft = m_PlayerMovement.FindAction("Move Left", throwIfNotFound: true);
-        m_PlayerMovement_MoveRight = m_PlayerMovement.FindAction("Move Right", throwIfNotFound: true);
+        m_PlayerMovement_Move = m_PlayerMovement.FindAction("Move", throwIfNotFound: true);
         m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
         m_PlayerMovement_Swipe = m_PlayerMovement.FindAction("Swipe", throwIfNotFound: true);
         m_PlayerMovement_Touch = m_PlayerMovement.FindAction("Touch", throwIfNotFound: true);
@@ -223,8 +246,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
     // Player Movement
     private readonly InputActionMap m_PlayerMovement;
     private List<IPlayerMovementActions> m_PlayerMovementActionsCallbackInterfaces = new List<IPlayerMovementActions>();
-    private readonly InputAction m_PlayerMovement_MoveLeft;
-    private readonly InputAction m_PlayerMovement_MoveRight;
+    private readonly InputAction m_PlayerMovement_Move;
     private readonly InputAction m_PlayerMovement_Jump;
     private readonly InputAction m_PlayerMovement_Swipe;
     private readonly InputAction m_PlayerMovement_Touch;
@@ -233,8 +255,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
     {
         private @Player m_Wrapper;
         public PlayerMovementActions(@Player wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MoveLeft => m_Wrapper.m_PlayerMovement_MoveLeft;
-        public InputAction @MoveRight => m_Wrapper.m_PlayerMovement_MoveRight;
+        public InputAction @Move => m_Wrapper.m_PlayerMovement_Move;
         public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
         public InputAction @Swipe => m_Wrapper.m_PlayerMovement_Swipe;
         public InputAction @Touch => m_Wrapper.m_PlayerMovement_Touch;
@@ -248,12 +269,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerMovementActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerMovementActionsCallbackInterfaces.Add(instance);
-            @MoveLeft.started += instance.OnMoveLeft;
-            @MoveLeft.performed += instance.OnMoveLeft;
-            @MoveLeft.canceled += instance.OnMoveLeft;
-            @MoveRight.started += instance.OnMoveRight;
-            @MoveRight.performed += instance.OnMoveRight;
-            @MoveRight.canceled += instance.OnMoveRight;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
@@ -270,12 +288,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
         {
-            @MoveLeft.started -= instance.OnMoveLeft;
-            @MoveLeft.performed -= instance.OnMoveLeft;
-            @MoveLeft.canceled -= instance.OnMoveLeft;
-            @MoveRight.started -= instance.OnMoveRight;
-            @MoveRight.performed -= instance.OnMoveRight;
-            @MoveRight.canceled -= instance.OnMoveRight;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
@@ -307,8 +322,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
     public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
     public interface IPlayerMovementActions
     {
-        void OnMoveLeft(InputAction.CallbackContext context);
-        void OnMoveRight(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSwipe(InputAction.CallbackContext context);
         void OnTouch(InputAction.CallbackContext context);
