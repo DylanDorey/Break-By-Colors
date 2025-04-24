@@ -4,61 +4,150 @@ using UnityEngine;
 
 public class TutorialWall : MonoBehaviour
 {
-    public bool willMatch;
-    public GameObject track;
+    [SerializeField]
+    private Material[] wallMaterials;
+
+    public TutorialWall PreviousTrack;
 
     [SerializeField]
-    private int scoreValue;
+    public bool willMatch;
 
-    private AudioClip[] wallBreakSounds;
-    private AudioSource wallAudioSource;
+    [SerializeField]
+    private bool _othersRandom;
 
-    public Material[] wallMaterials;
-    public Color thisWallColor;
+    [SerializeField]
+    private bool _othersConstant;
 
-    private Renderer wallRenderer;
-    private PlayerData player;
+    [SerializeField]
+    private Color _constantColor;
+
+    [SerializeField]
+    public int ScoreValue;
+
+    [SerializeField]
+    private GameObject[] _blocks;
+
+    [SerializeField]
+    public Color NextTargetColor;
+
+    [SerializeField]
+    private Color _thisWallColor;
+
+    [SerializeField]
+    private int _targetBlockIndex;
+
+    [HideInInspector]
+    public GameObject Track;
+
+    [HideInInspector]
+    public AudioClip[] wallBreakSounds;
+
+    [HideInInspector]
+    public AudioSource wallAudioSource;
+
+    private Renderer[] wallRenderers;
 
     private void Start()
     {
-        wallRenderer = transform.GetChild(0).GetComponent<Renderer>();
+        Track = transform.parent.transform.parent.gameObject;
+        wallRenderers = new Renderer[6];
 
-        wallRenderer.sharedMaterial = wallMaterials[1];
+        for (int i = 0; i < _blocks.Length; i++)
+        {
+            if (_blocks[i] != null)
+            {
+                wallRenderers[i] = transform.GetChild(i).transform.GetChild(0).GetComponent<Renderer>();
+            }
+        }
 
-        thisWallColor = Color.blue * 20f;
+        if(willMatch)
+        {
+            for (int i = 0; i < _blocks.Length; i++)
+            {
+                if (_blocks[i] != null)
+                {
+                    if (i == _targetBlockIndex)
+                    {
+                        wallRenderers[i].sharedMaterial = wallMaterials[ConvertColorToIndex(_thisWallColor)];
+                        _blocks[i].GetComponent<TutorialBlock>().ThisWallColor = _thisWallColor;
+                    }
+                    else
+                    {
+                        if (_othersRandom)
+                        {
+                            int randomColorIndex = ConvertColorToIndex(_thisWallColor);
+
+                            while (randomColorIndex == ConvertColorToIndex(_thisWallColor))
+                            {
+                                randomColorIndex = Random.Range(0, 4);
+                            }
+
+                            wallRenderers[i].sharedMaterial = wallMaterials[randomColorIndex];
+                            _blocks[i].GetComponent<TutorialBlock>().ThisWallColor = ConvertMaterialToColor(wallRenderers[i]);
+                        }
+                        else if (_othersConstant)
+                        {
+                            wallRenderers[i].sharedMaterial = wallMaterials[ConvertColorToIndex(_constantColor)];
+                            _blocks[i].GetComponent<TutorialBlock>().ThisWallColor = ConvertMaterialToColor(wallRenderers[i]);
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < _blocks.Length; i++)
+            {
+                if (_blocks[i] != null)
+                {
+                    int randomColorIndex = Random.Range(0, 4);
+                    wallRenderers[i].sharedMaterial = wallMaterials[randomColorIndex];
+                    _blocks[i].GetComponent<TutorialBlock>().ThisWallColor = ConvertMaterialToColor(wallRenderers[i]);
+                }
+            }
+        }
 
         wallBreakSounds = AudioManager.Instance.wallBreakSounds;
         wallAudioSource = AudioManager.Instance.wallAudioSource;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private int ConvertColorToIndex(Color c)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (c == Color.red)
         {
-            player = other.gameObject.GetComponent<PlayerData>();
+            return 0;
+        }
+        else if (c == Color.blue)
+        {
+            return 1;
+        }
+        else if (c == Color.cyan)
+        {
+            return 2;
+        }
+        else
+        {
+            return 3;
+        }
+    }
 
-            if (willMatch)
-            {
-                if (player.GetTargetColor() == thisWallColor)
-                {
-                    player.plusTwoParticle.Play();
-                    player.hitParticle.Play();
-                    player.SetNewTargetColor(Color.red * 20f);
-                    player.AddCurrentScore(scoreValue);
-                    AudioManager.Instance.PlayAudio(wallAudioSource, wallBreakSounds[Random.Range(0, wallBreakSounds.Length)], false);
-                }
-                else
-                {
-                    PlayerController.Instance.ResetPlayerPosition();
-                    track.transform.position += new Vector3(0f, 0f, 45f);
-                    //transform.parent.transform.parent.transform.position = Vector3.zero;
-                }
-            }
-            else
-            {
-                PlayerController.Instance.transform.position = Vector3.zero;
-                track.transform.position += new Vector3(0f, 0f, 45f);
-            }
+    private Color ConvertMaterialToColor(Renderer wR)
+    {
+        if (wR.sharedMaterial == wallMaterials[0])
+        {
+            return Color.red;
+        }
+        else if (wR.sharedMaterial == wallMaterials[1])
+        {
+            return Color.blue;
+        }
+        else if (wR.sharedMaterial == wallMaterials[2])
+        {
+            return Color.cyan;
+        }
+        else
+        {
+            return Color.yellow;
         }
     }
 }

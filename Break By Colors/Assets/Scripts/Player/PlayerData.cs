@@ -61,14 +61,14 @@ public class PlayerData : Singleton<PlayerData>
     {
         if (GameManager.Instance.tutorialSetting)
         {
-            targetColor = wallColors[1];
-            playerMat.SetColor("_EmissionColor", targetColor);
+            targetColor = Color.blue;
         }
         else
         {
             targetColor = wallColors[Random.Range(0, wallColors.Length)];
-            playerMat.SetColor("_EmissionColor", targetColor);
         }
+
+        playerMat.SetColor("_EmissionColor", targetColor);
     }
 
     /// <summary>

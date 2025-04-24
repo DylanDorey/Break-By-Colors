@@ -16,7 +16,7 @@ public class TutorialNextTrack : MonoBehaviour
         {
             TrackSpawner.Instance.pool.SpawnGameTrack();
 
-            PlayerController.Instance.transform.position = Vector3.zero;
+            PlayerController.Instance.ResetPlayerPosition();
 
             GameManager.Instance.tutorialSetting = false;
             UIManager.Instance.tutorialToggle.isOn = false;
