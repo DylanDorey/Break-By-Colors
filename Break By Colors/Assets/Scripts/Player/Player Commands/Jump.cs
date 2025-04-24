@@ -25,7 +25,7 @@ public class Jump : ICommand
 
     public void Execute()
     {
-        _mono.StartCoroutine(JumpRoutine(_moveTime));
+
     }
 
     public void Execute(InputAction.CallbackContext context, Vector2 swipeDirection)
@@ -33,8 +33,7 @@ public class Jump : ICommand
         //when the button is pressed for the jump command, and the player's y (upward, downward) velocity is equal to 0, execute the jump command
         if (context.performed)
         {
-            _invoker.DisableInvoker();
-            Execute();
+            _mono.StartCoroutine(JumpRoutine(_moveTime));
         }
     }
 
@@ -44,6 +43,8 @@ public class Jump : ICommand
         Vector3 targetPosition = new Vector3(_pC.transform.position.x, _jumpPosition.y, _pC.transform.position.z);
         float time = 0f;
         float duration = moveTime / 1.5f;
+
+        _invoker.DisableInvoker();
 
 
         while (time < duration)

@@ -42,8 +42,8 @@ public class PlayerController : Singleton<PlayerController>
         GameEventBus.Subscribe(GameState.startGame, EnableInput);
         GameEventBus.Subscribe(GameState.loadGame, DisableInput);
         GameEventBus.Subscribe(GameState.gameOver, DisableInput);
-        GameEventBus.Subscribe(GameState.returnToMenu, ResetPlayerPosition);
         GameEventBus.Subscribe(GameState.returnToMenu, DisableInput);
+        GameEventBus.Subscribe(GameState.returnToMenu, ResetPlayerPosition);
     }
 
     private void OnDisable()
@@ -51,8 +51,8 @@ public class PlayerController : Singleton<PlayerController>
         GameEventBus.Unsubscribe(GameState.startGame, EnableInput);
         GameEventBus.Unsubscribe(GameState.loadGame, DisableInput);
         GameEventBus.Unsubscribe(GameState.gameOver, DisableInput);
-        GameEventBus.Unsubscribe(GameState.returnToMenu, ResetPlayerPosition);
         GameEventBus.Unsubscribe(GameState.returnToMenu, DisableInput);
+        GameEventBus.Unsubscribe(GameState.returnToMenu, ResetPlayerPosition);
     }
 
     private void Start()
@@ -91,10 +91,13 @@ public class PlayerController : Singleton<PlayerController>
         //otherwise, if the player swipes further/more on the y axis
         else
         {
-            //if the player swipes up on the y axis
-            if (swipeDirection.y > 1f && isGrounded)
+            //
+            if (swipeDirection.y > 1f)
             {
-                _movementInvoker.InvokeMovement(_jump, context, swipeDirection);
+                if (isGrounded)
+                {
+                    _movementInvoker.InvokeMovement(_jump, context, swipeDirection);
+                }
             }
         }
     }
@@ -152,7 +155,7 @@ public class PlayerController : Singleton<PlayerController>
         playerActionMap.Enable();
 
         //Store the correct functions for when a swipe is performed/started and a touch is canceled/lifted
-        //playerActionMap.PlayerMovement.Swipe.performed += OnSwipeEnded;
+        playerActionMap.PlayerMovement.Swipe.performed += OnSwipeEnded;
         playerActionMap.PlayerMovement.Swipe.performed += OnMove;
 
         //initialize the player's rigidbody component
