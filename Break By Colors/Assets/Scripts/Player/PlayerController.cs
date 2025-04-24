@@ -24,8 +24,6 @@ public class PlayerController : Singleton<PlayerController>
 
     public Rigidbody rb;
 
-    private bool isGrounded = true;
-
     [SerializeField]
     private Transform playerModelTransform;
 
@@ -92,9 +90,9 @@ public class PlayerController : Singleton<PlayerController>
         else
         {
             //
-            if (swipeDirection.y > 1f)
+            if (swipeDirection.y > 0.5f)
             {
-                if (isGrounded)
+                if (CheckIfGrounded())
                 {
                     _movementInvoker.InvokeMovement(_jump, context, swipeDirection);
                 }
@@ -124,16 +122,16 @@ public class PlayerController : Singleton<PlayerController>
     /// <summary>
     /// Checks if the player is on the ground
     /// </summary>
-    public void CheckIfGrounded()
+    public bool CheckIfGrounded()
     {
         //if the raycast hits something
         if (Physics.Raycast(transform.position, Vector3.down, 0.7f))
         {
-            isGrounded = true;
+            return true;
         }
         else
         {
-            isGrounded = false;
+            return false;
         }
     }
 

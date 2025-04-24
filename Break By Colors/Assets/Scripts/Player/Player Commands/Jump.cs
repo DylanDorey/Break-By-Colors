@@ -31,7 +31,7 @@ public class Jump : ICommand
     public void Execute(InputAction.CallbackContext context, Vector2 swipeDirection)
     {
         //when the button is pressed for the jump command, and the player's y (upward, downward) velocity is equal to 0, execute the jump command
-        if (context.performed)
+        if (context.performed && _pC.CheckIfGrounded())
         {
             _mono.StartCoroutine(JumpRoutine(_moveTime));
         }
