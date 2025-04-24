@@ -56,7 +56,7 @@ public class Move : ICommand
     private IEnumerator MoveLerp(float moveTime, Vector2 swipeDirection)
     {
         Vector3 currentPos = _pC.transform.position;
-        Vector3 targetPosition = _pC.transform.position + CalculateDistanceToMove(swipeDirection);
+        Vector3 targetPosition = CalculateDistanceToMove(swipeDirection);
         float time = 0f;
 
         while (time < moveTime)
@@ -95,43 +95,78 @@ public class Move : ICommand
     /// <returns> the movement distance left to move </returns>
     private Vector3 CalculateDistanceToMove(Vector2 swipeDirection)
     {
-        float currentPos = _pC.transform.position.x;
+        Vector3 currentPos = _pC.transform.position;
         Vector3 distance = new Vector3(2f, 0f, 0f);
 
-        //if the player swipes right on the x axis
-        if (currentPos == 2f) //right
+
+        if(currentPos == new Vector3(2f, _pC.transform.position.y, 0f))
         {
             if (swipeDirection.x > 0f) //swipe right
             {
-                distance = new Vector3(0f, 0f, 0f);
-            }
-            else if(swipeDirection.x < 0f) //swipe left
-            {
-                distance = new Vector3(-2f, 0f, 0f);
-            }
-        }
-        else if(currentPos == -2f) //left
-        {
-            if (swipeDirection.x > 0f) //swipe right
-            {
-                distance = new Vector3(2f, 0f, 0f);
+                distance = new Vector3(2f, _pC.transform.position.y, 0f);
             }
             else if (swipeDirection.x < 0f) //swipe left
             {
-                distance = new Vector3(0f, 0f, 0f);
+                distance = new Vector3(0f, _pC.transform.position.y, 0f);
             }
         }
-        else //middle
+        else if(currentPos == new Vector3(-2f, _pC.transform.position.y, 0f))
         {
             if (swipeDirection.x > 0f) //swipe right
             {
-                distance = new Vector3(2f, 0f, 0f);
+                distance = new Vector3(0f, _pC.transform.position.y, 0f);
             }
-            else if(swipeDirection.x < 0f)//swipe left
+            else if (swipeDirection.x < 0f) //swipe left
             {
-                distance = new Vector3(-2f, 0f, 0f);
+                distance = new Vector3(-2f, _pC.transform.position.y, 0f);
             }
         }
+        else
+        {
+            if (swipeDirection.x > 0f) //swipe right
+            {
+                distance = new Vector3(2f, _pC.transform.position.y, 0f);
+            }
+            else if (swipeDirection.x < 0f) //swipe left
+            {
+                distance = new Vector3(-2f, _pC.transform.position.y, 0f);
+            }
+        }
+
+        //if the player swipes right on the x axis
+        //if (currentPos.x == 2f) //right
+        //{
+        //    if (swipeDirection.x > 0f) //swipe right
+        //    {
+        //        distance = new Vector3(0f, 0f, 0f);
+        //    }
+        //    else if(swipeDirection.x < 0f) //swipe left
+        //    {
+        //        distance = new Vector3(-2f, 0f, 0f);
+        //    }
+        //}
+        //else if(currentPos.x == -2f) //left
+        //{
+        //    if (swipeDirection.x > 0f) //swipe right
+        //    {
+        //        distance = new Vector3(2f, 0f, 0f);
+        //    }
+        //    else if (swipeDirection.x < 0f) //swipe left
+        //    {
+        //        distance = new Vector3(0f, 0f, 0f);
+        //    }
+        //}
+        //else //middle
+        //{
+        //    if (swipeDirection.x > 0f) //swipe right
+        //    {
+        //        distance = new Vector3(2f, 0f, 0f);
+        //    }
+        //    else if(swipeDirection.x < 0f)//swipe left
+        //    {
+        //        distance = new Vector3(-2f, 0f, 0f);
+        //    }
+        //}
 
         return distance;
     }
